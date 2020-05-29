@@ -25,6 +25,7 @@ class Controller
     {
         if(isset($_POST['submit'])) {
             $this->accountDAO->createAccount($post);
+            $this->session->set('create_account', 'Votre compte a bien été créé');
             header('Location: ../public/index.php');
         }
         $this->view->render('registerView');
