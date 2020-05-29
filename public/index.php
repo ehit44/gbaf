@@ -1,15 +1,8 @@
-<!doctype html>
 
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
+<?php
 
-  <title>Extranet GBAF</title>
+require '../config/dev.php';
+require '../vendor/autoload.php';
 
-  <link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
-</body>
-</html>
+$router = new \App\config\Router();
+$router->run();
