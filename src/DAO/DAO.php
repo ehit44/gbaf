@@ -5,13 +5,12 @@ namespace App\src\DAO;
 use PDO;
 use Exception;
 
-class DAO 
+abstract class DAO 
 {
-
 
     private $connection;
 
-    public function checkConnection()
+    private function checkConnection()
     {
         if($this->connection ===  null) {
             return $this->getConnection();
@@ -19,7 +18,7 @@ class DAO
         return $this->connection;
     }
     
-    public function getConnection()
+    private function getConnection()
     {
         try{
             $this->connection = new PDO(DB_HOST, DB_USER, DB_PASS);

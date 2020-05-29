@@ -17,11 +17,16 @@ class Router
 
     public function run()
     {
-
+        var_dump($_POST);
         try{
             if(isset($_GET['route']))
             {
+                if($_GET['route'] === 'register') {
+                    $this->controller->register($_POST);
+                }
+                else {
                 echo 'route inconnue';
+                }
             }
             else{
                 $this->controller->home();
