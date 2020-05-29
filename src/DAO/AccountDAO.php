@@ -6,7 +6,18 @@ use App\src\model\Account;
 
 class AccountDAO extends DAO
 {
+    private function buildObject($row)
+    {
+        $account = new Account;
+        $account->setId($row['id']);
+        $account->setName($row['name']);
+        $account->setFirstName($row['firstName']);
+        $account->setUsername($row['username']);
+        $account->setQuestion($row['question']);
+        $account->setResponse($row['response']);
 
+        return $account;
+    }
     
     public function createAccount($post)
     {
