@@ -1,24 +1,32 @@
 <?php
 
 namespace App\src\controller;
-use App\src\DAO\DAO;
+
+use App\src\DAO\AccountDAO;
 use App\src\model\View;
 
 class Controller
 {
-    private $DAO;
+    private $accountDAO;
     private $view;
 
     public function __construct()
     {
-        $this->DAO = new DAO;
+        $this->accountDAO = new AccountDAO;
         $this->view = new View;
     }
 
     public function home()
     {
-        $this->DAO->checkConnection();
-        $this->view->render('home');
-        //header('Location:../templates/home.php');
+        $this->view->render('homeView');
+    }
+
+    public function register($post)
+    {
+        if(isset($_POST['submit'])) {
+            $this->accountDAO->createAccount($post);
+            header('Location: ../public/index.php');
+        }
+        $this->view->render('registerView');
     }
 }
