@@ -10,12 +10,14 @@ class AccountDAO extends DAO
     private function buildObject($row)
     {
         $account = new Account;
-        $account->setId($row['id']);
-        $account->setName($row['name']);
-        $account->setFirstName($row['firstName']);
+        $account->setId($row['id_user']);
+        $account->setName($row['nom']);
+        $account->setFirstName($row['prenom']);
         $account->setUsername($row['username']);
         $account->setQuestion($row['question']);
-        $account->setResponse($row['response']);
+        $account->setResponse($row['reponse']);
+
+        return $account;
     }
 
     public function createAccount(Parameter $post)
@@ -46,9 +48,9 @@ class AccountDAO extends DAO
 
     public function getAccountById($idUser)
     {
-        $sql = 'SELECT nom, prenom, username, password, question, reponse 
+        $sql = 'SELECT id_user, nom, prenom, username, password, question, reponse 
         FROM account WHERE id_user = ?';
         $result = $this->createQuery($sql, [$idUser]);
-        return $result->fetch();
+        return $this->buildObject($result->fetch());
     }
 }
