@@ -41,6 +41,9 @@ class Router
                 elseif($route === 'myAccount') {
                     $this->controller->myAccount();
                 }
+                elseif($route === 'editAccount') {
+                    $this->controller->editAccount();
+                }
                 else {
                 echo 'route inconnue';
                 }

@@ -1,6 +1,7 @@
 <?php $this->title = 'Créez votre compte'; 
 ?>
 <h2>Vos informations personnelles</h2>
+<?= $this->session->show('edit_account'); ?>
 <div>
     <a href="../public/index.php?route=editAccount">Modifier vos informations personnelles</a>
     <h3>Nom : </h3>

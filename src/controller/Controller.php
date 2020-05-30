@@ -17,6 +17,8 @@ class Controller
     private $post;
     private $session;
 
+    private $idUser;
+
     public function __construct()
     {
         $this->accountDAO = new AccountDAO();
@@ -26,11 +28,13 @@ class Controller
         $this->get = $this->request->getGet();
         $this->post = $this->request->getPost();
         $this->session = $this->request->getSession();
+
+        $this->idUser = $this->session->get('id_user');
     }
 
     public function home()
     {
-        if($this->session->get('id_user')) {
+        if($this->idUser) {
             return $this->view->render('homeView');
         } else {
             $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
@@ -45,7 +49,7 @@ class Controller
             $this->session->set('create_account', 'Votre compte a bien été créé');
             header('Location: ../public/index.php');
         }
-        return $this->view->render('registerView');
+        return $this->view->render('accountFormView');
     }
 
     public function login(Parameter $post)
@@ -53,7 +57,6 @@ class Controller
         if($post->get('submit')!== null) {
             $login = $this->accountDAO->login($post);
             if($login['isPassCorrect']) {
-                var_dump($login);
                 $this->session->set('log_account', 'Vous êtes bien connecté');
                 $this->session->set('id_user', $login['result']['id_user']);
                 $this->session->set('username', $post->get('username'));
@@ -78,9 +81,26 @@ class Controller
 
     public function myAccount()
     {
-        if($this->session->get('id_user')) {
-            $user = $this->accountDAO->getAccountById($this->session->get('id_user'));
+        if($this->idUser) {
+            $user = $this->accountDAO->getAccountById($this->idUser);
             return $this->view->render('myAccountView', ['user' => $user]);
+        } else {
+            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
+            return $this->view->render('loginView');
+        }
+    }
+
+    public function editAccount()
+    {
+        if($this->idUser) {
+            $user = $this->accountDAO->getAccountById($this->idUser);
+            if($this->post->get('submit')) {
+                $this->accountDAO->editAccount($this->post, $this->idUser);
+                $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
+                header('Location: ../public/index.php?route=myAccount');
+            } else {
+                return $this->view->render('accountFormView', ['user' => $user]);
+            }
         } else {
             $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
             return $this->view->render('loginView');

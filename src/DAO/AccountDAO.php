@@ -51,6 +51,25 @@ class AccountDAO extends DAO
         $sql = 'SELECT id_user, nom, prenom, username, password, question, reponse 
         FROM account WHERE id_user = ?';
         $result = $this->createQuery($sql, [$idUser]);
+        
         return $this->buildObject($result->fetch());
+    }
+
+    public function editAccount(Parameter $post, $idUser)
+    {
+        $sql = 'UPDATE account 
+        SET nom = :name, prenom = :firstName, username = :username, 
+        password = :password, question = :question, reponse = :response
+        WHERE id_user = :idUser';
+        
+        $this->createQuery($sql, [
+            'name' => $post->get('name'),
+            'firstName' => $post->get('firstName'),
+            'username' => $post->get('username'),
+            'password' => password_hash($post->get('password'), PASSWORD_DEFAULT),
+            'question' => $post->get('question'),
+            'response' => $post->get('response'),
+            'idUser' => $idUser
+        ]);
     }
 }
