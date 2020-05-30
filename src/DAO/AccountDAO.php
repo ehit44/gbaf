@@ -7,6 +7,15 @@ use App\config\Parameter;
 
 class AccountDAO extends DAO
 {
+    private function buildObject($row)
+    {
+        $account = new Account;
+        $account->setId($row['id']);
+        $account->setName($row['name']);
+        $account->setFirstName($row['firstName']);
+        $account->setUsername($row['username']);
+        $account->setQuestion($row['question']);
+        $account->setResponse($row['response']);
 
     public function createAccount(Parameter $post)
     {
