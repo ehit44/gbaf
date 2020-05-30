@@ -1,4 +1,5 @@
-<?php $title = 'Extranet GBAF'; ?>
+<?php $this->title = 'Extranet GBAF'; ?>
+<?= $this->session->show('log_account'); ?>
 
 
 <h1>Le Groupement Banque Assurance Français</h1>

@@ -8,7 +8,10 @@
 </head>
 
 <body>
-<div class="header">HEADER</div>
+<div class="header">
+HEADER
+<a href="../public/index.php?route=logout">Déconnexion</a>
+</div>
     <div id="content">
         <?= $content ?>
     </div>
