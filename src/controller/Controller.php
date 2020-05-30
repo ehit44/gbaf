@@ -75,4 +75,15 @@ class Controller
         $this->session->set('logout', 'Vous avez été déconnecté');
         header('Location: ../public/index.php');
     }
+
+    public function myAccount()
+    {
+        if($this->session->get('id_user')) {
+            $user = $this->accountDAO->getAccountById($this->session->get('id_user'));
+            return $this->view->render('myAccountView', ['user' => $user]);
+        } else {
+            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
+            return $this->view->render('loginView');
+        }
+    }
 }

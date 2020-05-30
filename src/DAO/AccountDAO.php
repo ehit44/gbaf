@@ -16,6 +16,7 @@ class AccountDAO extends DAO
         $account->setUsername($row['username']);
         $account->setQuestion($row['question']);
         $account->setResponse($row['response']);
+    }
 
     public function createAccount(Parameter $post)
     {
@@ -41,5 +42,13 @@ class AccountDAO extends DAO
             $post->get('password'), $result['password']
         );
         return ['result' => $result, 'isPassCorrect' => $isPassCorrect];
+    }
+
+    public function getAccountById($idUser)
+    {
+        $sql = 'SELECT nom, prenom, username, password, question, reponse 
+        FROM account WHERE id_user = ?';
+        $result = $this->createQuery($sql, [$idUser]);
+        return $result->fetch();
     }
 }

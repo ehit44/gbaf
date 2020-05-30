@@ -38,6 +38,9 @@ class Router
                 elseif($route === 'logout') {
                     $this->controller->logout();
                 }
+                elseif($route === 'myAccount') {
+                    $this->controller->myAccount();
+                }
                 else {
                 echo 'route inconnue';
                 }
