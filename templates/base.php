@@ -11,6 +11,7 @@
 <div class="header">
 HEADER
 <a href="../public/index.php?route=logout">Déconnexion</a>
+<a href="../public/index.php?route=myAccount"><?= $this->session->get('username') ?></a>
 </div>
     <div id="content">
         <?= $content ?>
