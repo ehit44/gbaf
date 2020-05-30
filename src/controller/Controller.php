@@ -30,7 +30,12 @@ class Controller
 
     public function home()
     {
-        $this->view->render('homeView');
+        if($this->session->get('id_user')) {
+            $this->view->render('homeView');
+        } else {
+            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
+            $this->view->render('loginView');
+        }
     }
 
     public function register(Parameter $post)
