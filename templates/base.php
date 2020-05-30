@@ -9,9 +9,11 @@
 
 <body>
 <div class="header">
-HEADER
+<a href="../public/index.php">HEADER</a>
+<?php if($this->session->get('id_user')) { ?>
 <a href="../public/index.php?route=logout">Déconnexion</a>
 <a href="../public/index.php?route=myAccount"><?= $this->session->get('username') ?></a>
+<?php } ?>
 </div>
     <div id="content">
         <?= $content ?>
