@@ -21,10 +21,12 @@ class Router
     public function run()
     {
         $post = $this->request->getPost();
+        $post = $this->request->getPost();
         $route = $this->request->getGet()->get('route');
         var_dump($post);
         var_dump($this->request->getSession());
         try{
+            if($this->request->getSession())
             if(isset($route))
             {
                 if($route === 'register') {
@@ -32,6 +34,9 @@ class Router
                 }
                 elseif($route === 'login') {
                     $this->controller->login($post);
+                }
+                elseif($route === 'logout') {
+                    $this->controller->logout();
                 }
                 else {
                 echo 'route inconnue';

@@ -65,4 +65,14 @@ class Controller
         }
         $this->view->render('loginView');
     }
+
+    public function logout()
+    {
+        $this->session->stop();
+        $this->session->set('id_user', '');
+        $this->session->set('username', '');
+        $this->session->start();
+        $this->session->set('logout', 'Vous avez été déconnecté');
+        header('Location: ../public/index.php');
+    }
 }
