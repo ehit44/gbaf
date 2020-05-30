@@ -8,7 +8,6 @@ use App\config\Parameter;
 class AccountDAO extends DAO
 {
 
-    
     public function createAccount(Parameter $post)
     {
         $sql = 'INSERT INTO account (nom, prenom, username, password, question, reponse) 
@@ -22,5 +21,16 @@ class AccountDAO extends DAO
             'response' => $post->get('response'),
             ]
         );
+    }
+
+    public function login(Parameter $post)
+    {
+        $sql = 'SELECT id_user, username, password FROM account WHERE username = ?';
+        $data = $this->createQuery($sql, [$post->get('username')]);
+        $result = $data->fetch();
+        $isPassCorrect = password_verify(
+            $post->get('password'), $result['password']
+        );
+        return ['result' => $result, 'isPassCorrect' => $isPassCorrect];
     }
 }
