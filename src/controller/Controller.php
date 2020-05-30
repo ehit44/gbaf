@@ -19,8 +19,8 @@ class Controller
 
     public function __construct()
     {
-        $this->accountDAO = new AccountDAO;
-        $this->view = new View;
+        $this->accountDAO = new AccountDAO();
+        $this->view = new View();
 
         $this->request = new Request();
         $this->get = $this->request->getGet();
@@ -31,10 +31,10 @@ class Controller
     public function home()
     {
         if($this->session->get('id_user')) {
-            $this->view->render('homeView');
+            return $this->view->render('homeView');
         } else {
             $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
-            $this->view->render('loginView');
+            return $this->view->render('loginView');
         }
     }
 
@@ -45,7 +45,7 @@ class Controller
             $this->session->set('create_account', 'Votre compte a bien été créé');
             header('Location: ../public/index.php');
         }
-        $this->view->render('registerView');
+        return $this->view->render('registerView');
     }
 
     public function login(Parameter $post)
@@ -63,7 +63,7 @@ class Controller
                 echo 'erreur de connexion';
             }
         }
-        $this->view->render('loginView');
+        return $this->view->render('loginView');
     }
 
     public function logout()

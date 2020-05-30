@@ -1,4 +1,4 @@
-<?php $title = 'Créez votre compte'; 
+<?php $this->title = 'Créez votre compte'; 
 ?>
 <h2>Créez votre compte</h2>
 <div>

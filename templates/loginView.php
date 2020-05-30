@@ -1,6 +1,8 @@
-<?php $title = 'Connexion'; 
-$this->session->show('need_login');
+<?php $this->title = 'Connexion'; 
 ?>
+<?= $this->session->show('need_login'); ?>
+<?= $this->session->show('logout'); ?>
+<?= $this->session->show('create_account'); ?>
 
 <h2>Connexion</h2>
 <div>
