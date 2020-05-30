@@ -10,7 +10,6 @@ class Router
 
     private $controller;
     private $request;
-    private $post;
 
 
     public function __construct()
@@ -23,12 +22,16 @@ class Router
     {
         $post = $this->request->getPost();
         $route = $this->request->getGet()->get('route');
-        var_dump($_POST);
+        var_dump($post);
+        var_dump($this->request->getSession());
         try{
             if(isset($route))
             {
                 if($route === 'register') {
                     $this->controller->register($post);
+                }
+                elseif($route === 'login') {
+                    $this->controller->login($post);
                 }
                 else {
                 echo 'route inconnue';
