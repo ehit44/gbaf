@@ -35,6 +35,15 @@ class AccountDAO extends DAO
         );
     }
 
+    public function checkIfUsernameExists($username)
+    {
+        $sql = 'SELECT username FROM account WHERE username = ?';
+        $data = $this->createQuery($sql, [$username]);
+        if($data->rowCount()) {
+            return true;
+        } 
+    }
+
     public function login(Parameter $post)
     {
         $sql = 'SELECT id_user, username, password FROM account WHERE username = ?';

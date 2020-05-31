@@ -49,15 +49,25 @@ class Controller
     {
         if($post->get('submit')!== null) {
             $errors = $this->validation->validate($post, 'Account');
+            $errors += $this->checkUsernameUnicity($post->get('username'));
             if(!$errors) {
                 $this->accountDAO->createAccount($post);
-                $this->session->set('create_account', 'Votre compte a bien été créé');
-                header('Location: ../public/index.php');
+                $this->session->set('create_account', 'Votre compte a bien été créé, vous pouvez vous connecter');
+                header('Location: ../public/index.php?route=login');
             } else {
                 return $this->view->render('accountFormView', ['errors' => $errors]);
             }
         }
         return $this->view->render('accountFormView');
+    }
+
+    private function checkUsernameUnicity($username) {
+        $usernameExists = $this->accountDAO->checkIfUsernameExists($username);
+        $errors = [];
+        if($usernameExists) {
+            $errors = ['username' => '<p>Ce nom d\'utilisateur existe déjà<p>'];
+        }
+        return $errors;
     }
 
     public function login(Parameter $post)
