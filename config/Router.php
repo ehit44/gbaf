@@ -44,6 +44,9 @@ class Router
                 elseif($route === 'editAccount') {
                     $this->controller->editAccount();
                 }
+                elseif($route === 'lostPass') {
+                    $this->controller->lostPass($post);
+                }
                 else {
                 echo 'route inconnue';
                 }

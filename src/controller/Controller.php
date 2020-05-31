@@ -131,4 +131,43 @@ class Controller
             return $this->view->render('loginView');
         }
     }
+
+
+    public function lostPass(Parameter $post)
+    {
+        if($this->post->get('submitUsername') || $this->post->get('submitEdit')) {
+            $user = $this->accountDAO->getAccountByUsername($post->get('username'));
+            if($this->post->get('submitUsername')) {
+                return $this->view->render('lostPassEditView', ['user' => $user]);
+            } else {
+                $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
+                if(!$errors) {
+                    $errors = $this->validation->validate($this->post, 'Account');
+                    var_dump($errors);
+                    if(!$errors) {
+                        $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
+                        $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
+                        header('Location: ../public/index.php?route=login');
+                    } else {
+                        return $this->view->render('lostPassEditView', ['user' => $user, 'errors' => $errors]);
+                    }
+                } else {
+                    return $this->view->render('lostPassEditView', ['user' => $user, 'errors' => $errors]);
+                }
+            }
+        } else {
+            return $this->view->render('lostPassUsernameView');
+        }
+    }
+
+    private function checkSecretResponse($postResponse, $expectedResponse)
+    {
+        if(!$postResponse) {
+            $errors = ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
+        }
+        elseif($postResponse !== $expectedResponse) {
+            $errors = ['secretQuestion' => '<p>Mauvaise réponse</p>'];
+        }
+        //return $errors;
+    }
 }

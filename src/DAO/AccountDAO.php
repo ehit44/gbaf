@@ -64,6 +64,15 @@ class AccountDAO extends DAO
         return $this->buildObject($result->fetch());
     }
 
+    public function getAccountByUsername($username)
+    {
+        $sql = 'SELECT id_user, nom, prenom, username, password, question, reponse 
+        FROM account WHERE username = ?';
+        $result = $this->createQuery($sql, [$username]);
+        
+        return $this->buildObject($result->fetch());
+    }
+
     public function editAccount(Parameter $post, $idUser)
     {
         $sql = 'UPDATE account 
@@ -80,5 +89,17 @@ class AccountDAO extends DAO
             'response' => $post->get('response'),
             'idUser' => $idUser
         ]);
+    }
+
+    public function editPassword($username, $password)
+    {
+        $sql = 'UPDATE account SET password = :password WHERE username = :username';
+        $this->createQuery($sql, [
+            'password' => password_hash($password, PASSWORD_DEFAULT), 
+            'username' => $username
+            ]);
+            var_dump($sql);
+            var_dump($username);
+            var_dump($password);
     }
 }

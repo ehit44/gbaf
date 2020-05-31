@@ -3,6 +3,7 @@
 <?= $this->session->show('need_login'); ?>
 <?= $this->session->show('logout'); ?>
 <?= $this->session->show('create_account'); ?>
+<?= $this->session->show('edit_password'); ?>
 
 <h2>Connexion</h2>
 <div>
