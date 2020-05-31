@@ -6,6 +6,7 @@ use App\src\DAO\AccountDAO;
 use App\src\model\View;
 use App\config\Request;
 use App\config\Parameter;
+use App\src\constraint\Validation;
 
 class Controller
 {
@@ -16,6 +17,7 @@ class Controller
     private $get;
     private $post;
     private $session;
+    private $validation;
 
     private $idUser;
 
@@ -28,6 +30,7 @@ class Controller
         $this->get = $this->request->getGet();
         $this->post = $this->request->getPost();
         $this->session = $this->request->getSession();
+        $this->validation = new Validation();
 
         $this->idUser = $this->session->get('id_user');
     }
@@ -45,9 +48,14 @@ class Controller
     public function register(Parameter $post)
     {
         if($post->get('submit')!== null) {
-            $this->accountDAO->createAccount($post);
-            $this->session->set('create_account', 'Votre compte a bien été créé');
-            header('Location: ../public/index.php');
+            $errors = $this->validation->validate($post, 'Account');
+            if(!$errors) {
+                $this->accountDAO->createAccount($post);
+                $this->session->set('create_account', 'Votre compte a bien été créé');
+                header('Location: ../public/index.php');
+            } else {
+                return $this->view->render('accountFormView', ['errors' => $errors]);
+            }
         }
         return $this->view->render('accountFormView');
     }
@@ -95,9 +103,16 @@ class Controller
         if($this->idUser) {
             $user = $this->accountDAO->getAccountById($this->idUser);
             if($this->post->get('submit')) {
-                $this->accountDAO->editAccount($this->post, $this->idUser);
-                $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
-                header('Location: ../public/index.php?route=myAccount');
+                $errors = $this->validation->validate($this->post, 'Account');
+                if(!$errors) {
+                    $this->accountDAO->editAccount($this->post, $this->idUser);
+                    $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
+                    header('Location: ../public/index.php?route=myAccount');
+                } else {
+                    return $this->view->render('accountFormView', [
+                        'user' => $user, 'errors' => $errors
+                        ]);
+                }
             } else {
                 return $this->view->render('accountFormView', ['user' => $user]);
             }
