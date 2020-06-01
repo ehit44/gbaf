@@ -53,6 +53,9 @@ class Router
                 elseif($route === 'getActor') {
                     $this->displayController->getActor($get->get('actorId'));
                 }
+                elseif($route === 'postOpinion') {
+                    $this->displayController->postOpinion($post, $get->get('actorId'));
+                }
                 else {
                 echo 'route inconnue';
                 }
