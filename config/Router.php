@@ -2,19 +2,22 @@
 
 namespace App\config;
 
-use App\src\controller\Controller;
+use App\src\controller\AccountController;
+use App\src\controller\DisplayController;
 use App\config\Request;
 
 class Router
 {
 
-    private $controller;
+    private $accountController;
+    private $displayController;
     private $request;
 
 
     public function __construct()
     {
-        $this->controller = new Controller();
+        $this->accountController = new AccountController();
+        $this->displayController = new DisplayController();
         $this->request = new Request();
     }
 
@@ -24,35 +27,35 @@ class Router
         $post = $this->request->getPost();
         $route = $this->request->getGet()->get('route');
         var_dump($post);
-        var_dump($this->request->getSession());
+       // var_dump($this);
         try{
             if($this->request->getSession())
             if(isset($route))
             {
                 if($route === 'register') {
-                    $this->controller->register($post);
+                    $this->accountController->register($post);
                 }
                 elseif($route === 'login') {
-                    $this->controller->login($post);
+                    $this->accountController->login($post);
                 }
                 elseif($route === 'logout') {
-                    $this->controller->logout();
+                    $this->accountController->logout();
                 }
                 elseif($route === 'myAccount') {
-                    $this->controller->myAccount();
+                    $this->accountController->myAccount();
                 }
                 elseif($route === 'editAccount') {
-                    $this->controller->editAccount();
+                    $this->accountController->editAccount($post);
                 }
                 elseif($route === 'lostPass') {
-                    $this->controller->lostPass($post);
+                    $this->accountController->lostPass($post);
                 }
                 else {
                 echo 'route inconnue';
                 }
             }
             else{
-                $this->controller->home();
+                $this->displayController->home();
             }
         }
         catch (Exception $e)
