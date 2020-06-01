@@ -32,4 +32,17 @@ class ActorDAO extends DAO
         return $actors;
     }
 
+    public function getActorById($actorId)
+    {
+        $sql = 'SELECT id_acteur, acteur, description, logo FROM acteur
+        WHERE id_acteur = ?';
+        $result = $this->createQuery($sql, [$actorId]);
+        $data = $result->fetch();
+
+        $actor = $this->buildObject($data);
+        $result->closeCursor();
+
+        return $actor;
+    }
+
 }

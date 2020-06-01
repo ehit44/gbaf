@@ -23,4 +23,15 @@ class DisplayController extends Controller
             return $this->view->render('loginView');
         }
     }
+    
+    public function getActor($actorId)
+    {
+            if($this->idUser) {
+                $actor = $this->actorDAO->getActorById($actorId);
+                return $this->view->render('actorView', ['actor' => $actor]);
+            } else {
+                $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
+                return $this->view->render('loginView');
+            }
+    }
 }

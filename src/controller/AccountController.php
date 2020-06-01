@@ -64,7 +64,7 @@ class AccountController extends Controller
         $this->session->set('username', '');
         $this->session->start();
         $this->session->set('logout', 'Vous avez été déconnecté');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=login');
     }
 
     public function myAccount()
