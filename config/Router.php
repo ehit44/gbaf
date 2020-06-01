@@ -24,7 +24,7 @@ class Router
     public function run()
     {
         $post = $this->request->getPost();
-        $post = $this->request->getPost();
+        $get = $this->request->getGet();
         $route = $this->request->getGet()->get('route');
         var_dump($post);
        // var_dump($this);
@@ -49,6 +49,9 @@ class Router
                 }
                 elseif($route === 'lostPass') {
                     $this->accountController->lostPass($post);
+                }
+                elseif($route === 'getActor') {
+                    $this->displayController->getActor($get->get('actorId'));
                 }
                 else {
                 echo 'route inconnue';
