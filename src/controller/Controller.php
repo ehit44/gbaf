@@ -34,5 +34,12 @@ abstract class Controller
 
     }
 
+    protected function checkIfLogedIn()
+    {
+        if(!$this->idUser) {
+            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
+            header('Location: index.php?route=login');
+        }
+    }
     
 }

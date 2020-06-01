@@ -69,36 +69,28 @@ class AccountController extends Controller
 
     public function myAccount()
     {
-        if($this->idUser) {
-            $user = $this->accountDAO->getAccountById($this->idUser);
-            return $this->view->render('myAccountView', ['user' => $user]);
-        } else {
-            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
-            return $this->view->render('loginView');
-        }
+        $this->checkIfLogedIn();
+        $user = $this->accountDAO->getAccountById($this->idUser);
+        return $this->view->render('myAccountView', ['user' => $user]);
     }
 
     public function editAccount(Parameter $post)
     {
-        if($this->idUser) {
-            $user = $this->accountDAO->getAccountById($this->idUser);
-            if($post->get('submit')) {
-                $errors = $this->validation->validate($post, 'Account');
-                if(!$errors) {
-                    $this->accountDAO->editAccount($post, $this->idUser);
-                    $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
-                    header('Location: ../public/index.php?route=myAccount');
-                } else {
-                    return $this->view->render('accountFormView', [
-                        'user' => $user, 'errors' => $errors
-                        ]);
-                }
+        $this->checkIfLogedIn();
+        $user = $this->accountDAO->getAccountById($this->idUser);
+        if($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'Account');
+            if(!$errors) {
+                $this->accountDAO->editAccount($post, $this->idUser);
+                $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
+                header('Location: ../public/index.php?route=myAccount');
             } else {
-                return $this->view->render('accountFormView', ['user' => $user]);
+                return $this->view->render('accountFormView', [
+                    'user' => $user, 'errors' => $errors
+                    ]);
             }
         } else {
-            $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
-            return $this->view->render('loginView');
+            return $this->view->render('accountFormView', ['user' => $user]);
         }
     }
 
