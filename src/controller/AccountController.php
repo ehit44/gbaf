@@ -78,14 +78,14 @@ class AccountController extends Controller
         }
     }
 
-    public function editAccount()
+    public function editAccount(Parameter $post)
     {
         if($this->idUser) {
             $user = $this->accountDAO->getAccountById($this->idUser);
-            if($this->post->get('submit')) {
-                $errors = $this->validation->validate($this->post, 'Account');
+            if($post->get('submit')) {
+                $errors = $this->validation->validate($post, 'Account');
                 if(!$errors) {
-                    $this->accountDAO->editAccount($this->post, $this->idUser);
+                    $this->accountDAO->editAccount($post, $this->idUser);
                     $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
                     header('Location: ../public/index.php?route=myAccount');
                 } else {
@@ -105,15 +105,14 @@ class AccountController extends Controller
 
     public function lostPass(Parameter $post)
     {
-        if($this->post->get('submitUsername') || $this->post->get('submitEdit')) {
+        if($post->get('submitUsername') || $post->get('submitEdit')) {
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
-            if($this->post->get('submitUsername')) {
+            if($post->get('submitUsername')) {
                 return $this->view->render('lostPassEditView', ['user' => $user]);
             } else {
                 $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
                 if(!$errors) {
-                    $errors = $this->validation->validate($this->post, 'Account');
-                    var_dump($errors);
+                    $errors = $this->validation->validate($post, 'Account');
                     if(!$errors) {
                         $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
                         $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
@@ -133,10 +132,10 @@ class AccountController extends Controller
     private function checkSecretResponse($postResponse, $expectedResponse)
     {
         if(!$postResponse) {
-            $errors = ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
+            return ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
         }
         elseif($postResponse !== $expectedResponse) {
-            $errors = ['secretQuestion' => '<p>Mauvaise réponse</p>'];
+            return ['secretQuestion' => '<p>Mauvaise réponse</p>'];
         }
     }
 }

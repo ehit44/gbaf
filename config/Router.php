@@ -45,7 +45,7 @@ class Router
                     $this->accountController->myAccount();
                 }
                 elseif($route === 'editAccount') {
-                    $this->accountController->editAccount();
+                    $this->accountController->editAccount($post);
                 }
                 elseif($route === 'lostPass') {
                     $this->accountController->lostPass($post);
