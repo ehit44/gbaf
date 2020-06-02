@@ -37,13 +37,22 @@ class DisplayController extends Controller
     public function postOpinion(Parameter $post, $actorId)
     {
         $this->checkIfLogedIn();
-        $actor = $this->actorDAO->getActorById($actorId);
-        $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
         if($post->get('submit'))
         {
-            $this->opinionDAO->postOpinion($post, $actorId, $this->session->get('id_user'));
-            $this->session->set('post_opinion', 'Votre avis a bien été posté');
+            $errors = $this->validation->validate($post, 'Opinion');
+            if(!$errors){
+                $this->opinionDAO->postOpinion($post, $actorId, $this->session->get('id_user'));
+                $this->session->set('post_opinion', 'Votre avis a bien été posté');
+            } else {
+                $actor = $this->actorDAO->getActorById($actorId);
+                $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
+                return $this->view->render(
+                    'actorView', ['actor' => $actor, 'opinions' => $opinions, 'errors' => $errors]
+                );
+            }
         }
+        $actor = $this->actorDAO->getActorById($actorId);
+        $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
         return $this->view->render(
             'actorView', ['actor' => $actor, 'opinions' => $opinions]
         );
