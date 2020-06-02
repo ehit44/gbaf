@@ -7,6 +7,17 @@
 <img class="logoActor" src="../public/img/<?= $actor->getLogo();?>" alt="<?= $actor->getActor();?>">
 <p><?= $actor->getDescription();?></p>
 </div>
+<h3>Ce que vos collègues pensent de <?= $actor->getActor();?> : </h3>
+<?php 
+foreach ($opinions as $opinion) {
+?>
+<div class="opinion">
+<p><?= htmlspecialchars($opinion->getOpinion());?></p>
+<p>Posté le : <?= $opinion->getDate();?> par <?= htmlspecialchars($opinion->getUsername());?></p>
+</div>
+<?php 
+}
+?>
 <form  method="post" action="../public/index.php?route=postOpinion&actorId=<?= $actor->getId();?>">
     <label for="opinion">Donnez votre avis sur <?= $actor->getActor();?></label><br>
     <textarea id="opinion" name="opinion"  rows="4" cols="50"> </textarea><br>
