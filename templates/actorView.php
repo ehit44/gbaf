@@ -1,6 +1,8 @@
 <?php $this->title = $actor->getActor(); ?>
 <?= $this->session->show('post_opinion'); ?>
 
+
+
 <h2><?= $actor->getActor();?></h2>
 
 <div class="actorSingle">
@@ -8,6 +10,8 @@
 <p><?= $actor->getDescription();?></p>
 </div>
 <h3>Ce que vos collègues pensent de <?= $actor->getActor();?> : </h3>
+<a href="../public/index.php?route=upVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $voteIcon['upVote'];?>" alt="Noter comme positif"></a>
+<a href="../public/index.php?route=downVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $voteIcon['downVote'];?>" alt="Noter comme négatif"></a>
 <?php 
 foreach ($opinions as $opinion) {
 ?>

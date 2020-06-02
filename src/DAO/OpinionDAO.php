@@ -48,5 +48,4 @@ class OpinionDAO extends DAO
 
         return $result;
     }
-
 }

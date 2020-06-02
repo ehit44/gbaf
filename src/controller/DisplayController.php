@@ -2,18 +2,21 @@
 
 namespace App\src\controller;
 use App\src\DAO\ActorDAO;
+use App\src\DAO\VoteDAO;
 use App\src\DAO\OpinionDAO;
 use App\config\Parameter;
 
 class DisplayController extends Controller
 {
     protected $actorDAO;
+    protected $voteDAO;
     protected $opinionDAO;
 
     public function __construct()
     {
         parent::__construct();
         $this->actorDAO = new ActorDAO();
+        $this->voteDAO = new VoteDAO();
         $this->opinionDAO = new OpinionDAO();
     }
     
@@ -29,8 +32,9 @@ class DisplayController extends Controller
         $this->checkIfLogedIn();
         $actor = $this->actorDAO->getActorById($actorId);
         $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
+        $voteIcon = $this->showVoteStatus($actorId, $this->idUser);
         return $this->view->render(
-            'actorView', ['actor' => $actor, 'opinions' => $opinions]
+            'actorView', ['actor' => $actor, 'opinions' => $opinions, 'voteIcon' => $voteIcon]
         );
     }
 
@@ -56,5 +60,46 @@ class DisplayController extends Controller
         return $this->view->render(
             'actorView', ['actor' => $actor, 'opinions' => $opinions]
         );
+    }
+
+    public function upVote($actorId)
+    {
+        $this->checkIfLogedIn();
+        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
+        if($voteStatus === '1') {
+            $this->voteDAO->deleteVote($actorId, $this->idUser);
+        } elseif($voteStatus === '0') {
+            $this->voteDAO->updateVote($actorId, $this->idUser, 1);
+        } elseif($voteStatus === null) {
+            $this->voteDAO->addVote($actorId, $this->idUser, 1);
+        }
+        $this->getActorPage($actorId);
+    }
+
+    public function downVote($actorId)
+    {
+        $this->checkIfLogedIn();
+        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
+        if($voteStatus === '0') {
+            $this->voteDAO->deleteVote($actorId, $this->idUser);
+        } elseif($voteStatus === '1') {
+            $this->voteDAO->updateVote($actorId, $this->idUser, 0);
+        } elseif($voteStatus === null) {
+            $this->voteDAO->addVote($actorId, $this->idUser, 0);
+        }
+        $this->getActorPage($actorId);
+    }
+
+    private function showVoteStatus($actorId)
+    {
+        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
+        if($voteStatus === '0') {
+            $icon = ['upVote' => 'positive-vote.png', 'downVote' => 'negative-vote-bold.png'];
+        } elseif ($voteStatus === '1') {
+            $icon = ['upVote' => 'positive-vote-bold.png', 'downVote' => 'negative-vote.png'];
+        } else {
+            $icon = ['upVote' => 'positive-vote.png', 'downVote' => 'negative-vote.png'];
+        }
+        return $icon;
     }
 }
