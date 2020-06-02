@@ -2,18 +2,21 @@
 
 namespace App\src\controller;
 use App\src\DAO\ActorDAO;
+use App\src\DAO\VoteDAO;
 use App\src\DAO\OpinionDAO;
 use App\config\Parameter;
 
 class DisplayController extends Controller
 {
     protected $actorDAO;
+    protected $voteDAO;
     protected $opinionDAO;
 
     public function __construct()
     {
         parent::__construct();
         $this->actorDAO = new ActorDAO();
+        $this->voteDAO = new VoteDAO();
         $this->opinionDAO = new OpinionDAO();
     }
     
@@ -56,5 +59,22 @@ class DisplayController extends Controller
         return $this->view->render(
             'actorView', ['actor' => $actor, 'opinions' => $opinions]
         );
+    }
+
+    public function upVote($actorId)
+    {
+        $this->checkIfLogedIn();
+        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
+        var_dump($voteStatus);
+        if($voteStatus === '1') {
+            $this->voteDAO->deleteVote($actorId, $this->idUser);
+            var_dump('vote supprimé');
+        } elseif($voteStatus === '0') {
+            $this->voteDAO->updateVote($actorId, $this->idUser, 1);
+            var_dump('vote mis à jour');
+        } elseif($voteStatus === null) {
+            $this->voteDAO->addVote($actorId, $this->idUser, 1);
+            var_dump('vote ajouté');
+        }
     }
 }

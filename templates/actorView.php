@@ -8,6 +8,8 @@
 <p><?= $actor->getDescription();?></p>
 </div>
 <h3>Ce que vos collègues pensent de <?= $actor->getActor();?> : </h3>
+<a href="../public/index.php?route=upVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/positive-vote.png" alt="Noter comme positif"></a>
+<a href="../public/index.php?route=downVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/negative-vote.png" alt="Noter comme négatif"></a>
 <?php 
 foreach ($opinions as $opinion) {
 ?>
