@@ -65,16 +65,27 @@ class DisplayController extends Controller
     {
         $this->checkIfLogedIn();
         $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
-        var_dump($voteStatus);
         if($voteStatus === '1') {
             $this->voteDAO->deleteVote($actorId, $this->idUser);
-            var_dump('vote supprimé');
         } elseif($voteStatus === '0') {
             $this->voteDAO->updateVote($actorId, $this->idUser, 1);
-            var_dump('vote mis à jour');
         } elseif($voteStatus === null) {
             $this->voteDAO->addVote($actorId, $this->idUser, 1);
-            var_dump('vote ajouté');
         }
+        header('Location: ../public/index.php?route=getActor&actorId=' .$actorId);
+    }
+
+    public function downVote($actorId)
+    {
+        $this->checkIfLogedIn();
+        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
+        if($voteStatus === '0') {
+            $this->voteDAO->deleteVote($actorId, $this->idUser);
+        } elseif($voteStatus === '1') {
+            $this->voteDAO->updateVote($actorId, $this->idUser, 0);
+        } elseif($voteStatus === null) {
+            $this->voteDAO->addVote($actorId, $this->idUser, 0);
+        }
+        header('Location: ../public/index.php?route=getActor&actorId=' .$actorId);
     }
 }
