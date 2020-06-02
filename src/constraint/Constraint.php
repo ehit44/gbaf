@@ -13,13 +13,13 @@ class Constraint
     public function minLength($value, $minSize)
     {
         if(strlen($value) < $minSize) {
-            return '<p>Le champ doit contenir au moins '.$minSize.' caractères</p>';
+            return '<p>Minimum '.$minSize.' caractères </p>';
         }
     }
     public function maxLength($value, $maxSize)
     {
         if(strlen($value) > $maxSize) {
-            return '<p>Le champ doit contenir au maximum '.$maxSize.' caractères</p>';
+            return '<p>Maximum '.$maxSize.' caractères</p>';
         }
     }
     public function isEqual($name, $value, $nameToConfirm, $valueToConfirm)

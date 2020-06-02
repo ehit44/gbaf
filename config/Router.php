@@ -51,7 +51,7 @@ class Router
                     $this->accountController->lostPass($post);
                 }
                 elseif($route === 'getActor') {
-                    $this->displayController->getActor($get->get('actorId'));
+                    $this->displayController->getActorPage($get->get('actorId'));
                 }
                 elseif($route === 'postOpinion') {
                     $this->displayController->postOpinion($post, $get->get('actorId'));
