@@ -6,18 +6,23 @@
 <h2><?= $actor->getActor();?></h2>
 
 <div class="actorSingle">
-<img class="logoActor" src="../public/img/<?= $actor->getLogo();?>" alt="<?= $actor->getActor();?>">
-<p><?= $actor->getDescription();?></p>
+    <img class="logoActor" src="../public/img/<?= $actor->getLogo();?>" alt="<?= $actor->getActor();?>">
+    <p><?= $actor->getDescription();?></p>
 </div>
 <h3>Ce que vos collègues pensent de <?= $actor->getActor();?> : </h3>
-<a href="../public/index.php?route=upVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $voteIcon['upVote'];?>" alt="Noter comme positif"></a>
-<a href="../public/index.php?route=downVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $voteIcon['downVote'];?>" alt="Noter comme négatif"></a>
+<div class="vote">
+    <a href="../public/index.php?route=upVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $vote->getPositiveIcon();?>" alt="Noter comme positif"></a>
+    <p><?= $vote->getPositiveVoteNb();?> ont donné une note positive</p>
+    <a href="../public/index.php?route=downVote&actorId=<?= $actor->getId();?>"><img class="icon" src="../public/icon/<?= $vote->getNegativeIcon();?>" alt="Noter comme négatif"></a>
+    <p><?= $vote->getNegativeVoteNb();?> ont donné une note négative</p>
+</div>
+
 <?php 
 foreach ($opinions as $opinion) {
 ?>
 <div class="opinion">
-<p><?= htmlspecialchars($opinion->getOpinion());?></p>
-<p>Posté le : <?= $opinion->getDate();?> par <?= htmlspecialchars($opinion->getUsername());?></p>
+    <p><?= htmlspecialchars($opinion->getOpinion());?></p>
+    <p>Posté le : <?= $opinion->getDate();?> par <?= htmlspecialchars($opinion->getUsername());?></p>
 </div>
 <?php 
 }

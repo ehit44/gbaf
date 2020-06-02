@@ -32,9 +32,9 @@ class DisplayController extends Controller
         $this->checkIfLogedIn();
         $actor = $this->actorDAO->getActorById($actorId);
         $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
-        $voteIcon = $this->showVoteStatus($actorId, $this->idUser);
+        $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
         return $this->view->render(
-            'actorView', ['actor' => $actor, 'opinions' => $opinions, 'voteIcon' => $voteIcon]
+            'actorView', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
         );
     }
 
@@ -73,7 +73,7 @@ class DisplayController extends Controller
         } elseif($voteStatus === null) {
             $this->voteDAO->addVote($actorId, $this->idUser, 1);
         }
-        $this->getActorPage($actorId);
+        header('Location: ../public/index.php?route=getActor&actorId=' .$actorId);
     }
 
     public function downVote($actorId)
@@ -87,19 +87,7 @@ class DisplayController extends Controller
         } elseif($voteStatus === null) {
             $this->voteDAO->addVote($actorId, $this->idUser, 0);
         }
-        $this->getActorPage($actorId);
+        header('Location: ../public/index.php?route=getActor&actorId=' .$actorId);
     }
 
-    private function showVoteStatus($actorId)
-    {
-        $voteStatus = $this->voteDAO->getVoteStatus($actorId, $this->idUser);
-        if($voteStatus === '0') {
-            $icon = ['upVote' => 'positive-vote.png', 'downVote' => 'negative-vote-bold.png'];
-        } elseif ($voteStatus === '1') {
-            $icon = ['upVote' => 'positive-vote-bold.png', 'downVote' => 'negative-vote.png'];
-        } else {
-            $icon = ['upVote' => 'positive-vote.png', 'downVote' => 'negative-vote.png'];
-        }
-        return $icon;
-    }
 }
