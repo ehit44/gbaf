@@ -21,6 +21,7 @@ foreach ($opinions as $opinion) {
 <form  method="post" action="../public/index.php?route=postOpinion&actorId=<?= $actor->getId();?>">
     <label for="opinion">Donnez votre avis sur <?= $actor->getActor();?></label><br>
     <textarea id="opinion" name="opinion"  rows="4" cols="50"> </textarea><br>
+    <?= isset($errors['opinion']) ? $errors['opinion'] : ''; ?>
     <input type="submit" value="Envoyer" id="submit" name="submit">
 </form>
 <a href="../public/index.php">Retour à l'accueil</a>
