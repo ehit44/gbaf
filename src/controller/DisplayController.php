@@ -22,6 +22,7 @@ class DisplayController extends Controller
     
     public function home()
     {
+        //echo $this->twig->render('index.html', ['name' => 'Fabien']);
         $this->checkIfLogedIn();
         $actors = $this->actorDAO->getAllActors();
         return $this->view->render('homeView', ['actors' => $actors]);

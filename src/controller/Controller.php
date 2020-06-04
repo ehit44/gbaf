@@ -16,6 +16,8 @@ abstract class Controller
     protected $post;
     protected $session;
     protected $validation;
+
+    protected $twig;
     
     protected $idUser;
 
@@ -30,8 +32,21 @@ abstract class Controller
         $this->session = $this->request->getSession();
         $this->validation = new Validation();
 
+        $this->installTwig();
+
         $this->idUser = $this->session->get('id_user');
 
+    }
+
+    private function installTwig()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader('../templates');
+        $this->twig = new \Twig\Environment($loader, [
+            'debug' => true,
+            //'cache' => '/path/to/compilation_cache',
+        ]);
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+        $this->twig->addGlobal('session', $this->session);
     }
 
     protected function checkIfLogedIn()

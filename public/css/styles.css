@@ -6,6 +6,10 @@
   border: solid;
 }
 
+.logo {
+  width: 50px;
+}
+
 .actor {
   background-color: lightgray;
   border-style: solid;
