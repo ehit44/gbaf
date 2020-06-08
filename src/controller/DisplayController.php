@@ -22,12 +22,12 @@ class DisplayController extends Controller
     
     public function home()
     {
-        //echo $this->twig->render('index.html', ['name' => 'Fabien']);
+        //echo $this->twig->render('index.twig.html', ['name' => 'Fabien']);
         $this->checkIfLogedIn();
         $actors = $this->actorDAO->getAllActors();
-        return $this->view->render('homeView', ['actors' => $actors]);
+        echo $this->twig->render('homeView.html', ['actors' => $actors, 'name' => 'Fabien']);
+
     }
-    
     public function getActorPage($actorId)
     {
         $this->checkIfLogedIn();

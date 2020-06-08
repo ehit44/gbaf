@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Extranet GBAF{% endblock %}
+
+{% block content %}
+
+{{session.show('log_account')}}
+
+<h1>Le Groupement Banque Assurance Français</h1>
+<p>Le GBAF est le représentant de la profession bancaire et des assureurs sur tous  les axes de la
+    réglementation financière française. Sa mission est de promouvoir  l'activité bancaire à l’échelle nationale.
+    C’est aussi un interlocuteur privilégié des  pouvoirs publics. </p>
+
+<h2>Liste des acteurs</h2>
+
+{% for actor in actors %}
+
+<div class="actor">
+    <img class="logoActor" src="../public/img/{{actor.logo}}" alt="{{actor.actor}}">
+    <h3>{{actor.actor}}</h3>
+    <p>{{actor.description}}...</p>
+    <a href="../public/index.php?route=getActor&actorId={{actor.id}}">Voir plus</a>
+</div>
+{% endfor %}
+
+
+{% endblock %}
