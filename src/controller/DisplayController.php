@@ -22,10 +22,9 @@ class DisplayController extends Controller
     
     public function home()
     {
-        //echo $this->twig->render('index.twig.html', ['name' => 'Fabien']);
         $this->checkIfLogedIn();
         $actors = $this->actorDAO->getAllActors();
-        echo $this->twig->render('homeView.html', ['actors' => $actors, 'name' => 'Fabien']);
+        echo $this->twig->render('homeView.html', ['actors' => $actors]);
 
     }
     public function getActorPage($actorId)
@@ -34,8 +33,8 @@ class DisplayController extends Controller
         $actor = $this->actorDAO->getActorById($actorId);
         $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
         $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
-        return $this->view->render(
-            'actorView', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
+        echo $this->twig->render(
+            'actorView.html', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
         );
     }
 
