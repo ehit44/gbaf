@@ -25,10 +25,10 @@ class AccountController extends Controller
                 $this->session->set('create_account', 'Votre compte a bien été créé, vous pouvez vous connecter');
                 header('Location: ../public/index.php?route=login');
             } else {
-                return $this->view->render('accountFormView', ['errors' => $errors]);
+                echo $this->twig->render('accountFormView.html', ['errors' => $errors]);
             }
         }
-        return $this->view->render('accountFormView');
+        echo $this->twig->render('accountFormView.html');
     }
 
     private function checkUsernameUnicity($username) {

@@ -48,18 +48,10 @@ class DisplayController extends Controller
                 $this->opinionDAO->postOpinion($post, $actorId, $this->session->get('id_user'));
                 $this->session->set('post_opinion', 'Votre avis a bien été posté');
             } else {
-                $actor = $this->actorDAO->getActorById($actorId);
-                $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
-                return $this->view->render(
-                    'actorView', ['actor' => $actor, 'opinions' => $opinions, 'errors' => $errors]
-                );
+                $this->session->set('error_post', $errors['opinion']);
             }
         }
-        $actor = $this->actorDAO->getActorById($actorId);
-        $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
-        return $this->view->render(
-            'actorView', ['actor' => $actor, 'opinions' => $opinions]
-        );
+        $this->getActorPage($actorId);
     }
 
     public function upVote($actorId)

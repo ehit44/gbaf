@@ -31,6 +31,7 @@
 <form  method="post" action="../public/index.php?route=postOpinion&actorId={{actor.id}}">
     <label for="opinion">Donnez votre avis sur {{actor.actor}}</label><br>
     <textarea id="opinion" name="opinion"  rows="4" cols="50"> </textarea><br>
+    {{session.show('error_post')}}
     {%if errors['opinion'] %} errors['opinion'] {% endif %}
     <input type="submit" value="Envoyer" id="submit" name="submit">
 </form>
