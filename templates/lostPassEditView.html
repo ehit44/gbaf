@@ -1,7 +1,12 @@
-<?php $this->title = 'Mot de passe oublié'; 
-$username = isset($user) && $user->getUsername() ? htmlspecialchars($user->getUsername()) : '';
-$question = isset($user) && $user->getQuestion() ? htmlspecialchars($user->getQuestion()) : ''; 
-?>
+{% extends "base.html" %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block content %}
+
+{% set username = user and user.username ? user.username : '' %}
+{% set question = user and user.question ? user.question : '' %}
+
 
 <h2>Vous avez oublié votre mot de passe ?</h2>
 
@@ -9,8 +14,8 @@ $question = isset($user) && $user->getQuestion() ? htmlspecialchars($user->getQu
 <div>
     <form method="post" action="../public/index.php?route=lostPass">
         <label for="username">Nom d'utilisateur :</label><br>
-        <input type="text" id="username" name="username" readonly="readonly" value="<?= $username ?>"><br>
-        <label for="secretQuestion"><?= 'Votre question secrète : ' . $question ?></label><br>
+        <input type="text" id="username" name="username" readonly="readonly" value="{{user.username}}"><br>
+        <label for="secretQuestion">Votre question secrète : {{user.question}} ?</label><br>
         <input type="text" id="secretQuestion" name="secretQuestion"><br>
         <?= isset($errors['secretQuestion']) ? $errors['secretQuestion'] : ''; ?>
         <label for="password">Nouveau mot de passe</label><br>
@@ -21,3 +26,4 @@ $question = isset($user) && $user->getQuestion() ? htmlspecialchars($user->getQu
 </div>
 
 <a href="../public/index.php?route=login">Connexion</a>
+{% endblock %}

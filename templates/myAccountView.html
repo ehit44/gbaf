@@ -1,14 +1,21 @@
-<?php $this->title = 'Créez votre compte'; 
-?>
+{% extends "base.html" %}
+
+{% block title %}Vos informations personnelles{% endblock %}
+
+{% block content %}
+
+
 <h2>Vos informations personnelles</h2>
-<?= $this->session->show('edit_account'); ?>
+{{ session.show('edit_account') }}
 <div>
     <a href="../public/index.php?route=editAccount">Modifier vos informations personnelles</a>
     <h3>Nom : </h3>
-    <p><?= htmlspecialchars($user->getName()) ?></p>
+    <p>{{ user.name }}</p>
     <h3>Prénom : </h3>
-    <p><?= htmlspecialchars($user->getFirstName()) ?></p>
+    <p>{{ user.firstName }}</p>
     <h3>Nom d'utilisateur : </h3>
-    <p><?= htmlspecialchars($user->getUsername()) ?></p>
+    <p>{{ user.username }}</p>
 </div>
 <a href="../public/index.php">Retour à l'accueil</a>
+
+{% endblock %}

@@ -1,9 +1,13 @@
-<?php $this->title = 'Connexion'; 
-?>
-<?= $this->session->show('need_login'); ?>
-<?= $this->session->show('logout'); ?>
-<?= $this->session->show('create_account'); ?>
-<?= $this->session->show('edit_password'); ?>
+{% extends "base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+{{ session.show('need_login') }}
+{{ session.show('logout') }}
+{{ session.show('create_account') }}
+{{ session.show('edit_password') }}
 
 <h2>Connexion</h2>
 <div>
@@ -19,3 +23,5 @@
 </div>
 <a href="../public/index.php?route=lostPass">Mot de passe oublié ?</a>
 <a href="../public/index.php?route=register">Pas encore de compte ? Inscrivez-vous</a>
+
+{% endblock %}

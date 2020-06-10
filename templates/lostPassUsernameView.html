@@ -1,5 +1,8 @@
-<?php $this->title = 'Mot de passe oublié'; 
-?>
+{% extends "base.html" %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block content %}
 
 <h2>Vous avez oublié votre mot de passe ?</h2>
 
@@ -13,3 +16,5 @@
 </div>
 
 <a href="../public/index.php?route=login">Connexion</a>
+
+{% endblock %}
