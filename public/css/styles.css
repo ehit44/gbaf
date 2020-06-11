@@ -1,13 +1,87 @@
+
+/* GLOBAL */
+
+a{
+  text-decoration:none;
+  color: rgba(0, 0, 0);
+  transition:color 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+a:hover{
+  color:rgba(0, 0, 0, 0.8);
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+}
+
+/* HEADER */
+
+@media (min-width: 960px) {
+  .main-header .container {
+    justify-content: space-between;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 960px;
+  max-width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+
+.main-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 5px solid #FF0000;
+  background-image: url(../img/home.jpg);
+  background-size: cover;
+}
+
+.mh-logo:hover {
+  opacity: 0.8;
+}
+
+
+.main-nav ul {
+  margin: 1em 0 .5em;
+  text-align: center;
+}
+.main-nav li {
+  display: inline;
+}
+.main-nav a {
+  display: inline-block;
+  padding: .5em 1.5em;
+}
+.main-nav .icon {
+  width: 20px;
+  margin-right: .5em;
+}
+
+.main-nav li:hover {
+  opacity: 0.8;
+}
+
+
 .footer {
   border: solid;
-}
-
-.header {
-  border: solid;
-}
-
-.logo {
-  width: 50px;
 }
 
 .actor {
@@ -30,6 +104,3 @@
   padding: 10px;
 }
 
-.icon {
-  width: 30px;
-}
