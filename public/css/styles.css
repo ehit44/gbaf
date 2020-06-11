@@ -5,7 +5,6 @@ a{
   text-decoration:none;
   color: rgba(0, 0, 0);
   transition:color 0.3s;
-  font-weight: bold;
   text-transform: uppercase;
   font-weight: 900;
 }
@@ -23,14 +22,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 900;
 }
 
-/* HEADER */
-
-@media (min-width: 960px) {
-  .main-header .container {
-    justify-content: space-between;
-  }
-}
-
 img {
   max-width: 100%;
   height: auto;
@@ -43,6 +34,13 @@ img {
   margin: 0 auto;
 }
 
+/* HEADER */
+
+@media (min-width: 960px) {
+  .main-header .container {
+    justify-content: space-between;
+  }
+}
 
 .main-header .container {
   display: flex;
@@ -57,7 +55,6 @@ img {
 .mh-logo:hover {
   opacity: 0.8;
 }
-
 
 .main-nav ul {
   margin: 1em 0 .5em;
@@ -75,14 +72,10 @@ img {
   margin-right: .5em;
 }
 
-.main-nav li:hover {
+.main-nav a:hover {
   opacity: 0.8;
 }
 
-
-.footer {
-  border: solid;
-}
 
 .actor {
   background-color: lightgray;
@@ -104,3 +97,17 @@ img {
   padding: 10px;
 }
 
+/* FOOTER */
+
+footer .container {
+  background-color: #FF0000;
+}
+
+footer li {
+  color: white;
+  font-weight: 900;
+}
+
+footer a {
+  color: white;
+}
