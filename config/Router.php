@@ -26,8 +26,6 @@ class Router
         $post = $this->request->getPost();
         $get = $this->request->getGet();
         $route = $this->request->getGet()->get('route');
-        var_dump($post);
-       // var_dump($this);
         try{
             if($this->request->getSession())
             if(isset($route))

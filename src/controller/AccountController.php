@@ -17,7 +17,7 @@ class AccountController extends Controller
 
     public function register(Parameter $post)
     {
-        if($post->get('submit')!== null) {
+        if($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Account');
             $errors += $this->checkUsernameUnicity($post->get('username'));
             if(!$errors) {
@@ -25,10 +25,10 @@ class AccountController extends Controller
                 $this->session->set('create_account', 'Votre compte a bien été créé, vous pouvez vous connecter');
                 header('Location: ../public/index.php?route=login');
             } else {
-                return $this->view->render('accountFormView', ['errors' => $errors]);
+                echo $this->twig->render('accountFormView.html', ['errors' => $errors]);
             }
         }
-        return $this->view->render('accountFormView');
+        echo $this->twig->render('accountFormView.html');
     }
 
     private function checkUsernameUnicity($username) {
@@ -42,7 +42,7 @@ class AccountController extends Controller
 
     public function login(Parameter $post)
     {
-        if($post->get('submit')!== null) {
+        if($post->get('submit')) {
             $login = $this->accountDAO->login($post);
             if($login['isPassCorrect']) {
                 $this->session->set('log_account', 'Vous êtes bien connecté');
@@ -54,7 +54,7 @@ class AccountController extends Controller
                 echo 'erreur de connexion';
             }
         }
-        return $this->view->render('loginView');
+        echo $this->twig->render('loginView.html');
     }
 
     public function logout()
@@ -71,7 +71,7 @@ class AccountController extends Controller
     {
         $this->checkIfLogedIn();
         $user = $this->accountDAO->getAccountById($this->idUser);
-        return $this->view->render('myAccountView', ['user' => $user]);
+        echo $this->twig->render('myAccountView.html', ['user' => $user]);
     }
 
     public function editAccount(Parameter $post)
@@ -85,12 +85,12 @@ class AccountController extends Controller
                 $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
                 header('Location: ../public/index.php?route=myAccount');
             } else {
-                return $this->view->render('accountFormView', [
+                echo $this->twig->render('accountFormView.html', [
                     'user' => $user, 'errors' => $errors
                     ]);
             }
         } else {
-            return $this->view->render('accountFormView', ['user' => $user]);
+            echo $this->twig->render('accountFormView.html', ['user' => $user]);
         }
     }
 
@@ -100,7 +100,7 @@ class AccountController extends Controller
         if($post->get('submitUsername') || $post->get('submitEdit')) {
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
             if($post->get('submitUsername')) {
-                return $this->view->render('lostPassEditView', ['user' => $user]);
+                echo $this->twig->render('lostPassEditView.html', ['user' => $user]);
             } else {
                 $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
                 if(!$errors) {
@@ -110,14 +110,14 @@ class AccountController extends Controller
                         $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
                         header('Location: ../public/index.php?route=login');
                     } else {
-                        return $this->view->render('lostPassEditView', ['user' => $user, 'errors' => $errors]);
+                        echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
                     }
                 } else {
-                    return $this->view->render('lostPassEditView', ['user' => $user, 'errors' => $errors]);
+                    echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
                 }
             }
         } else {
-            return $this->view->render('lostPassUsernameView');
+            echo $this->twig->render('lostPassUsernameView.html');
         }
     }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:900|Work+Sans:300" rel="stylesheet">
+</head>
+
+<body>
+<header class="main-header">
+    <div class="container">
+            <h1 class="mh-logo">
+                <a href="../public/index.php"><img src="../public/img/gbaf-logo.png" width="70" alt="GBAF"></a>
+            </h1>
+            {% if session.get('id_user') %}
+            <nav class="main-nav">
+                <ul class="main-nav-list">
+                    <li>
+                        <a href="../public/index.php?route=myAccount"><img class="icon" src="../public/icon/user.png" alt="Déconnexion">{{session.get('username')}}</a>
+                    </li>
+                    <li>
+                        <a href="../public/index.php?route=logout"><img class="icon" src="../public/icon/logout.png" alt="Déconnexion">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
+    </div>
+</header>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+<footer>
+    <div class="container">
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li>
+                    <a href="#">Mentions légales</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+
+</body>
+</html>

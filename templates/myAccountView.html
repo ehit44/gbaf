@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Vos informations personnelles{% endblock %}
+
+{% block content %}
+
+
+<h2>Vos informations personnelles</h2>
+{{ session.show('edit_account') }}
+<div>
+    <a href="../public/index.php?route=editAccount">Modifier vos informations personnelles</a>
+    <h3>Nom : </h3>
+    <p>{{ user.name }}</p>
+    <h3>Prénom : </h3>
+    <p>{{ user.firstName }}</p>
+    <h3>Nom d'utilisateur : </h3>
+    <p>{{ user.username }}</p>
+</div>
+<a href="../public/index.php">Retour à l'accueil</a>
+
+{% endblock %}

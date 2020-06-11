@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{actor.actor}}{% endblock %}
+
+{% block content %}
+{{session.show('post_opinion')}}
+
+
+
+<h2>{{actor.actor}}</h2>
+
+<div class="actorSingle">
+    <img class="logoActor" src="../public/img/{{actor.logo}}" alt="{{actor.actor}}">
+    <p>{{actor.description}}</p>
+</div>
+<h3>Ce que vos collègues pensent de {{actor.actor}} : </h3>
+<div class="vote">
+    <a href="../public/index.php?route=upVote&actorId={{actor.id}}"><img class="icon" src="../public/icon/{{vote.positiveIcon}}" alt="Noter comme positif"></a>
+    <p>{{vote.positiveVoteNb}} ont donné une note positive</p>
+    <a href="../public/index.php?route=downVote&actorId={{actor.id}}"><img class="icon" src="../public/icon/{{vote.negativeIcon}}" alt="Noter comme négatif"></a>
+    <p>{{vote.negativeVoteNb}} ont donné une note négative</p>
+</div>
+
+{% for opinion in opinions %}
+<div class="opinion">
+    <p>{{opinion.opinion}}</p>
+    <p>Posté le : {{opinion.date}} par {{opinion.username}}</p>
+</div>
+{% endfor %}
+
+<form  method="post" action="../public/index.php?route=postOpinion&actorId={{actor.id}}">
+    <label for="opinion">Donnez votre avis sur {{actor.actor}}</label><br>
+    <textarea id="opinion" name="opinion"  rows="4" cols="50"> </textarea><br>
+    {{session.show('error_post')}}
+    {%if errors['opinion'] %} errors['opinion'] {% endif %}
+    <input type="submit" value="Envoyer" id="submit" name="submit">
+</form>
+<a href="../public/index.php">Retour à l'accueil</a>
+
+{% endblock %}
+
+

@@ -1,4 +1,3 @@
-
 <?php
 
 require '../config/dev.php';

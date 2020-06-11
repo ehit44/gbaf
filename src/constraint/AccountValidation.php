@@ -6,7 +6,7 @@ use App\config\Parameter;
 class AccountValidation extends Validation
 {
     private $errors = [];
-    private $constraint;
+    protected $constraint;
 
     public function __construct()
     {
