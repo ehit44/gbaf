@@ -41,7 +41,8 @@ class AccountDAO extends DAO
         $data = $this->createQuery($sql, [$username]);
         if($data->rowCount()) {
             return true;
-        } 
+        }
+        return false;
     }
 
     public function login(Parameter $post)
@@ -79,7 +80,7 @@ class AccountDAO extends DAO
         SET nom = :name, prenom = :firstName, username = :username, 
         password = :password, question = :question, reponse = :response
         WHERE id_user = :idUser';
-        
+        // TODO dissocier la mise à jour mot de passe et compte
         $this->createQuery($sql, [
             'name' => $post->get('name'),
             'firstName' => $post->get('firstName'),
@@ -98,8 +99,6 @@ class AccountDAO extends DAO
             'password' => password_hash($password, PASSWORD_DEFAULT), 
             'username' => $username
             ]);
-            var_dump($sql);
-            var_dump($username);
-            var_dump($password);
     }
 }
+// TODO suppression compte avec alerte JS

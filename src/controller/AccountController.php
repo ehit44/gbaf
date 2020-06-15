@@ -26,9 +26,11 @@ class AccountController extends Controller
                 header('Location: ../public/index.php?route=login');
             } else {
                 echo $this->twig->render('accountFormView.html', ['errors' => $errors]);
+                return;
             }
         }
         echo $this->twig->render('accountFormView.html');
+        return;
     }
 
     private function checkUsernameUnicity($username) {
@@ -51,6 +53,7 @@ class AccountController extends Controller
                 header('Location: ../public/index.php');
 
             } else {
+                // TODO renvoyer vers page de connexion avec erreur
                 echo 'erreur de connexion';
             }
         }
@@ -59,6 +62,7 @@ class AccountController extends Controller
 
     public function logout()
     {
+        // TODO remplacer set par remove
         $this->session->stop();
         $this->session->set('id_user', '');
         $this->session->set('username', '');
@@ -86,8 +90,9 @@ class AccountController extends Controller
                 header('Location: ../public/index.php?route=myAccount');
             } else {
                 echo $this->twig->render('accountFormView.html', [
-                    'user' => $user, 'errors' => $errors
-                    ]);
+                    'user' => $user,
+                    'errors' => $errors
+                ]);
             }
         } else {
             echo $this->twig->render('accountFormView.html', ['user' => $user]);
@@ -105,6 +110,7 @@ class AccountController extends Controller
                 $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
                 if(!$errors) {
                     $errors = $this->validation->validate($post, 'Account');
+                    // TODO refacto errors
                     if(!$errors) {
                         $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
                         $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
@@ -126,7 +132,7 @@ class AccountController extends Controller
         if(!$postResponse) {
             return ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
         }
-        elseif($postResponse !== $expectedResponse) {
+        if($postResponse !== $expectedResponse) {
             return ['secretQuestion' => '<p>Mauvaise réponse</p>'];
         }
     }

@@ -7,6 +7,14 @@ class OpinionValidation extends Validation
 {
     private $errors = [];
 
+    private function addError($name, $error) {
+        if($error) {
+            $this->errors += [
+                $name => $error
+            ];
+        }
+    }
+
     public function check(Parameter $post)
     {
         foreach ($post->all() as $key => $value) {
@@ -20,14 +28,6 @@ class OpinionValidation extends Validation
         if($name === 'opinion') {
             $error = $this->checkLargeText($value);
             $this->addError($name, $error);
-        }
-    }
-
-    private function addError($name, $error) {
-        if($error) {
-            $this->errors += [
-                $name => $error
-            ];
         }
     }
 
