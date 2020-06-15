@@ -36,6 +36,12 @@ img {
   margin: 0 auto;
 }
 
+.error {
+  color: #FF0000;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
 /* HEADER */
 
 @media (min-width: 960px) {

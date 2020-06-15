@@ -53,11 +53,13 @@ class AccountController extends Controller
                 header('Location: ../public/index.php');
 
             } else {
-                // TODO renvoyer vers page de connexion avec erreur
-                echo 'erreur de connexion';
+                $error = ['connexion' => 'Erreur de connexion'];
+                echo $this->twig->render('loginView.html', ['errors' => $error]);
+                return;
             }
         }
         echo $this->twig->render('loginView.html');
+        return;
     }
 
     public function logout()
