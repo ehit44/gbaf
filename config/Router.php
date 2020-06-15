@@ -61,14 +61,14 @@ class Router
                     $this->displayController->downVote($get->get('actorId'));
                 }
                 else {
-                echo 'route inconnue';
+                    echo 'route inconnue';
                 }
             }
             else{
                 $this->displayController->home();
             }
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             echo 'Erreur serveur: '. $e;
         }

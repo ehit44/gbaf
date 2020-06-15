@@ -15,6 +15,8 @@ a:hover{
 body {
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
+  color: #333333;
+  text-align: justify;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -76,17 +78,37 @@ img {
   opacity: 0.8;
 }
 
+/* HOME */
 
-.actor {
-  background-color: lightgray;
+@media (min-width: 768px) {
+  .actor-container {
+    justify-content: space-between;
+  }
+}
+
+.actor-container {
+  background-color: #ededed;
   border-style: solid;
-  border-color: grey;
+  border-color: #333333;
   margin: 10px;
   padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.actor-title {
+  width: 25%;
+  margin: 5px;
+}
+
+.actor-subcontent {
+  margin: 5px;
+  width: 75%;
 }
 
 .logoActor {
-  width: 100px;
+  width: 150px;
+  border-radius: 20px;
 }
 
 .opinion {
