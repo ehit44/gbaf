@@ -131,21 +131,20 @@ class AccountController extends Controller
     {
         if($post->get('submitUsername') || $post->get('submitEdit')) {
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
+            if(!$user->getId()) {
+                $errors = ['username' => "Ce nom d'utilisateur n'existe pas"];
+                echo $this->twig->render('lostPassUsernameView.html', ['errors' => $errors]);
+                return;
+            }
             if($post->get('submitUsername')) {
                 echo $this->twig->render('lostPassEditView.html', ['user' => $user]);
             } else {
-                $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
-                if(!$errors) {
-                    $errors = $this->validation->validate($post, 'Account');
-                    // TODO refacto errors
-                    if(!$errors) {
-                        $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
-                        $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
-                        header('Location: ../public/index.php?route=login');
-                    } else {
-                        echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
-                        return;
-                    }
+                $errors = $this->validation->validate($post, 'Account');
+                $errors['secretQuestion'] = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
+                if(!$errors['secretQuestion'] and !$errors['password']) {
+                    $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
+                    $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
+                    header('Location: ../public/index.php?route=login');
                 } else {
                     echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
                     return;
@@ -160,10 +159,11 @@ class AccountController extends Controller
     private function checkSecretResponse($postResponse, $expectedResponse)
     {
         if(!$postResponse) {
-            return ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
+            return 'Répondez à la question secrète';
         }
         if($postResponse !== $expectedResponse) {
-            return ['secretQuestion' => '<p>Mauvaise réponse</p>'];
+            return 'Mauvaise réponse';
         }
     }
+
 }
