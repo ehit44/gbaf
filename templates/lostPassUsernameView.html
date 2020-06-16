@@ -10,7 +10,7 @@
     <form method="post" action="../public/index.php?route=lostPass">
         <label for="username">Quel est votre nom d'utilisateur ?</label><br>
         <input type="text" id="username" name="username"><br>
-        <?= isset($errors['username']) ? $errors['username'] : ''; ?>
+        <div class="error">{{errors.username ? errors.username}}</div>
         <input type="submit" value="Valider" id="submit" name="submitUsername">
     </form>
 </div>

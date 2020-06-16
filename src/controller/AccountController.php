@@ -45,7 +45,7 @@ class AccountController extends Controller
     public function login(Parameter $post)
     {
         if($post->get('submit')) {
-            $login = $this->accountDAO->login($post);
+            $login = $this->accountDAO->checkPassword($post->get('username'), $post->get('password'));
             if($login['isPassCorrect']) {
                 $this->session->set('log_account', 'Vous êtes bien connecté');
                 $this->session->set('id_user', $login['result']['id_user']);
@@ -53,19 +53,20 @@ class AccountController extends Controller
                 header('Location: ../public/index.php');
 
             } else {
-                // TODO renvoyer vers page de connexion avec erreur
-                echo 'erreur de connexion';
+                $error = ['connexion' => 'Erreur de connexion'];
+                echo $this->twig->render('loginView.html', ['errors' => $error]);
+                return;
             }
         }
         echo $this->twig->render('loginView.html');
+        return;
     }
 
     public function logout()
     {
-        // TODO remplacer set par remove
         $this->session->stop();
-        $this->session->set('id_user', '');
-        $this->session->set('username', '');
+        $this->session->remove('id_user');
+        $this->session->remove('username');
         $this->session->start();
         $this->session->set('logout', 'Vous avez été déconnecté');
         header('Location: ../public/index.php?route=login');
@@ -96,6 +97,32 @@ class AccountController extends Controller
             }
         } else {
             echo $this->twig->render('accountFormView.html', ['user' => $user]);
+            return;
+        }
+    }
+
+    public function editPassword(Parameter $post)
+    {
+        $this->checkIfLogedIn();
+        if($post->get('submit')) {
+            $user = $this->accountDAO->getAccountById($this->idUser);
+            $errors = $this->validation->validate($post, 'Account');
+            $checkPass = $this->accountDAO->checkPassword($user->getUsername(), $post->get('password-old'));
+            if(!$checkPass['isPassCorrect']) {
+                $errors['password_old'] =  'Mauvais mot de passe';
+            }
+            if(!$errors) {
+                $this->accountDAO->editPassword($user->getUsername(), $post->get('password'));
+                $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
+                header('Location: ../public/index.php?route=myAccount');
+            } else {
+                echo $this->twig->render('editPasswordView.html', ['errors' => $errors]);
+                return;
+            }
+        }
+        else {
+            echo $this->twig->render('editPasswordView.html');
+            return;
         }
     }
 
@@ -104,36 +131,52 @@ class AccountController extends Controller
     {
         if($post->get('submitUsername') || $post->get('submitEdit')) {
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
+            if(!$user->getId()) {
+                $errors = ['username' => "Ce nom d'utilisateur n'existe pas"];
+                echo $this->twig->render('lostPassUsernameView.html', ['errors' => $errors]);
+                return;
+            }
             if($post->get('submitUsername')) {
                 echo $this->twig->render('lostPassEditView.html', ['user' => $user]);
             } else {
-                $errors = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
-                if(!$errors) {
-                    $errors = $this->validation->validate($post, 'Account');
-                    // TODO refacto errors
-                    if(!$errors) {
-                        $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
-                        $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
-                        header('Location: ../public/index.php?route=login');
-                    } else {
-                        echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
-                    }
+                $errors = $this->validation->validate($post, 'Account');
+                $errors['secretQuestion'] = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
+                if(!$errors['secretQuestion'] and !$errors['password']) {
+                    $this->accountDAO->editPassword($post->get('username'), $post->get('password'));
+                    $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
+                    header('Location: ../public/index.php?route=login');
                 } else {
                     echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
+                    return;
                 }
             }
         } else {
             echo $this->twig->render('lostPassUsernameView.html');
+            return;
         }
     }
 
     private function checkSecretResponse($postResponse, $expectedResponse)
     {
         if(!$postResponse) {
-            return ['secretQuestion' => '<p>Répondez à la question secrète</p>'];
+            return 'Répondez à la question secrète';
         }
         if($postResponse !== $expectedResponse) {
-            return ['secretQuestion' => '<p>Mauvaise réponse</p>'];
+            return 'Mauvaise réponse';
         }
     }
+
+    public function deleteAccount()
+    {
+        $this->checkIfLogedIn();
+        $result = $this->accountDAO->deleteAccountById($this->idUser);
+        if($result) {
+        $this->session->set('delete_account', 'Votre compte a été supprimé');
+        header('Location: ../public/index.php?route=login');
+        } else {
+            $this->session->set('delete_account', 'Impossible de supprimer le compte');
+            header('Location: ../public/index.php?route=myAccount');
+        }
+    }
+
 }

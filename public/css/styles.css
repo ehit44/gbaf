@@ -36,6 +36,18 @@ img {
   margin: 0 auto;
 }
 
+.error {
+  color: #FF0000;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.session {
+
+  font-weight: 900;
+  margin: 10px 0px;
+}
+
 /* HEADER */
 
 @media (min-width: 960px) {
