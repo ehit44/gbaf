@@ -24,7 +24,7 @@ class OpinionDAO extends DAO
     {
         $sql = 'SELECT id_post, username, id_acteur, date_add, post 
         FROM post LEFT JOIN account on account.id_user = post.id_user 
-        WHERE id_acteur = ?';
+        WHERE id_acteur = ? ORDER BY date_add DESC';
         $result = $this->createQuery($sql, [$actorId]);
         $data = $result->fetchAll();
         $opinions = [];

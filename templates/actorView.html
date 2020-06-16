@@ -3,13 +3,14 @@
 {% block title %}{{actor.actor}}{% endblock %}
 
 {% block content %}
-{{session.show('post_opinion')}}
+
+<div class="session">{{session.show('post_opinion')}}</div>
 
 
 
 <h2>{{actor.actor}}</h2>
 
-<div class="actorSingle">
+<div class="actor-single">
     <img class="logoActor" src="../public/img/{{actor.logo}}" alt="{{actor.actor}}">
     <p>{{actor.description}}</p>
 </div>
@@ -24,18 +25,17 @@
 {% for opinion in opinions %}
 <div class="opinion">
     <p>{{opinion.opinion}}</p>
-    <p>Posté le : {{opinion.date}} par {{opinion.username}}</p>
+    <p class="italic">Posté le : {{opinion.date}} par {{opinion.username}}</p>
 </div>
 {% endfor %}
 
 <form  method="post" action="../public/index.php?route=postOpinion&actorId={{actor.id}}">
-    <label for="opinion">Donnez votre avis sur {{actor.actor}}</label><br>
+    <label for="opinion"><h3>Donnez votre avis sur {{actor.actor}}</h3></label><br>
     <textarea id="opinion" name="opinion"  rows="4" cols="50"> </textarea><br>
-    {{session.show('error_post')}}
-    {%if errors['opinion'] %} errors['opinion'] {% endif %}
-    <input type="submit" value="Envoyer" id="submit" name="submit">
+    <div class="error">{{session.show('error_post')}}</div>
+    <input class="small button" type="submit" value="Envoyer" id="submit" name="submit">
 </form>
-<a href="../public/index.php">Retour à l'accueil</a>
+<a class="nav-link" href="../public/index.php">Retour à l'accueil</a>
 
 {% endblock %}
 
