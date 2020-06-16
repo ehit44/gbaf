@@ -6,9 +6,11 @@
 
 
 <h2>Vos informations personnelles</h2>
-{{ session.show('edit_account') }}
+<div class="session">{{ session.show('edit_account') }}</div>
+<div class="session">{{ session.show('edit_password') }}</div>
 <div>
     <a href="../public/index.php?route=editAccount">Modifier vos informations personnelles</a>
+    <a href="../public/index.php?route=editPassword">Modifier le mot de passe</a>
     <h3>Nom : </h3>
     <p>{{ user.name }}</p>
     <h3>Prénom : </h3>

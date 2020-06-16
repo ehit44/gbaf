@@ -45,13 +45,13 @@ class AccountDAO extends DAO
         return false;
     }
 
-    public function login(Parameter $post)
+    public function checkPassword($username, $password)
     {
         $sql = 'SELECT id_user, username, password FROM account WHERE username = ?';
-        $data = $this->createQuery($sql, [$post->get('username')]);
+        $data = $this->createQuery($sql, [$username]);
         $result = $data->fetch();
         $isPassCorrect = password_verify(
-            $post->get('password'), $result['password']
+            $password, $result['password']
         );
         return ['result' => $result, 'isPassCorrect' => $isPassCorrect];
     }
@@ -80,7 +80,6 @@ class AccountDAO extends DAO
         SET nom = :name, prenom = :firstName, username = :username, 
         password = :password, question = :question, reponse = :response
         WHERE id_user = :idUser';
-        // TODO dissocier la mise à jour mot de passe et compte
         $this->createQuery($sql, [
             'name' => $post->get('name'),
             'firstName' => $post->get('firstName'),

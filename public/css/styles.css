@@ -42,6 +42,12 @@ img {
   margin-bottom: 10px;
 }
 
+.session {
+
+  font-weight: 900;
+  margin: 10px 0px;
+}
+
 /* HEADER */
 
 @media (min-width: 960px) {

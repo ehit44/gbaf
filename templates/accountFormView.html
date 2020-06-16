@@ -19,27 +19,25 @@
     <form method="post" action="../public/index.php?route={{route}}">
         <label for="name">Nom</label><br>
         <input type="text" id="name" name="name" value="{{name}}" ><br>
-        <?= isset($errors['name']) ? $errors['name'] : ''; ?>
+        <div class="error">{{errors.name ? errors.name }}</div>
         <label for="firstName">Prénom</label><br>
         <input type="text" id="firstName" name="firstName" value="{{firstName}}"><br>
-        <?= isset($errors['firstName']) ? $errors['firstName'] : ''; ?>
+        <div class="error">{{errors.firstName ? errors.firstName }}</div>
         <label for="username">Nom d'utilisateur</label><br>
         <input type="text" id="username" name="username" value="{{username}}"><br>
-        <?= isset($errors['username']) ? $errors['username'] : ''; ?>
-        <label for="password">Mot de passe</label><br>
-        <input type="password" id="password" name="password"><br>
-        <?= isset($errors['password']) ? $errors['password'] : ''; ?>
+        <div class="error">{{errors.username ? errors.username }}</div>
         <label for="question">Question secrète</label><br>
         <input type="text" id="question" name="question" value="{{question}}"><br>
-        <?= isset($errors['question']) ? $errors['question'] : ''; ?>
+        <div class="error">{{errors.question ? errors.question }}</div>
         <label for="response">Réponse à la question secrète</label><br>
         <input type="text" id="response" name="response" value="{{response}}"><br>
-        <?= isset($errors['response']) ? $errors['response'] : ''; ?>
+        <div class="error">{{errors.response ? errors.response }}</div>
         <input type="submit" value="{{submit}}" id="submit" name="submit">
     </form>
 </div>
 {% if user %}
 <a href="../public/index.php?route=myAccount">Retour à mon compte</a>
+<a href="../public/index.php?route=editPassword">Modifier le mot de passe</a>
 {% else %}
 <a href="../public/index.php?route=login">Déjà inscrit ? Connectez-vous</a>
 {% endif %}

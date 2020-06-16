@@ -17,10 +17,10 @@
         <input type="text" id="username" name="username" readonly="readonly" value="{{user.username}}"><br>
         <label for="secretQuestion">Votre question secrète : {{user.question}} ?</label><br>
         <input type="text" id="secretQuestion" name="secretQuestion"><br>
-        <?= isset($errors['secretQuestion']) ? $errors['secretQuestion'] : ''; ?>
+        <div class="error">{{errors.secretQuestion ? errors.secretQuestion }}</div>
         <label for="password">Nouveau mot de passe</label><br>
         <input type="password" id="password" name="password"><br>
-        <?= isset($errors['password']) ? $errors['password'] : ''; ?>
+        <div class="error">{{errors.password ? errors.password }}</div>
         <input type="submit" value="Modifier le mot de passe" id="submit" name="submitEdit">
     </form>
 </div>
