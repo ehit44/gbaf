@@ -99,5 +99,12 @@ class AccountDAO extends DAO
             'username' => $username
             ]);
     }
+
+    public function deleteAccountById($idUser)
+    {
+        $sql = 'DELETE FROM account WHERE id_user = ?';
+        $result = $this->createQuery($sql, [$idUser]);
+
+        return $result;
+    }
 }
-// TODO suppression compte avec alerte JS

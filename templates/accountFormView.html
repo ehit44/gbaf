@@ -26,6 +26,13 @@
         <label for="username">Nom d'utilisateur</label><br>
         <input type="text" id="username" name="username" value="{{username}}"><br>
         <div class="error">{{errors.username ? errors.username }}</div>
+
+        {% if user is not defined %}
+        <label for="password">Mot de passe</label><br>
+        <input type="password" id="password" name="password" value="{{password}}"><br>
+        <div class="error">{{errors.password ? errors.password }}</div>
+        {% endif %}
+
         <label for="question">Question secrète</label><br>
         <input type="text" id="question" name="question" value="{{question}}"><br>
         <div class="error">{{errors.question ? errors.question }}</div>

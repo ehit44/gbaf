@@ -166,4 +166,17 @@ class AccountController extends Controller
         }
     }
 
+    public function deleteAccount()
+    {
+        $this->checkIfLogedIn();
+        $result = $this->accountDAO->deleteAccountById($this->idUser);
+        if($result) {
+        $this->session->set('delete_account', 'Votre compte a été supprimé');
+        header('Location: ../public/index.php?route=login');
+        } else {
+            $this->session->set('delete_account', 'Impossible de supprimer le compte');
+            header('Location: ../public/index.php?route=myAccount');
+        }
+    }
+
 }
