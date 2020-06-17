@@ -242,6 +242,34 @@ img {
   font-size: 0.8em;
 }
 
+/* MY ACCOUNT */
+
+.personnal-info {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.personnal-info .button {
+  margin: 5px;
+}
+
+.personnal-info p, h4 {
+  margin: 5px;
+}
+
+.personnal-info .container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 10px;
+  list-style: none;
+}
+
 /* FOOTER */
 
 footer .container {
