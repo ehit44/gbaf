@@ -13,6 +13,7 @@
 {% block title %}{{heading}}{% endblock %}
 
 {% block content %}
+<div class="main">
 
 <section class="signup">
     <div class="container">
@@ -60,15 +61,15 @@
             <div class="signup-image">
                 {% if user %}
                 <figure><img src="img/account-image.jpg" alt="sing up image"></figure>
-                <a href="../public/index.php?route=myAccount">Retour à mon compte</a>
-                <a href="../public/index.php?route=editPassword">Modifier le mot de passe</a>
+                <a class="signup-image-link" href="../public/index.php?route=myAccount">Retour à mon compte</a>
+                <a class="signup-image-link" href="../public/index.php?route=editPassword">Modifier le mot de passe</a>
                 {% else %}
                 <figure><img src="img/register-image.jpg" alt="sing up image"></figure>
-                <a href="../public/index.php?route=login">Déjà inscrit ? Connectez-vous</a>
+                <a class="signup-image-link" href="../public/index.php?route=login">Déjà inscrit ? Connectez-vous</a>
                 {% endif %}
             </div>
         </div>
     </div>
 </section>
-
+</div>
 {% endblock %}
