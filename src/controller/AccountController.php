@@ -62,13 +62,17 @@ class AccountController extends Controller
         return;
     }
 
-    public function logout()
+    public function logout($reason)
     {
         $this->session->stop();
         $this->session->remove('id_user');
         $this->session->remove('username');
         $this->session->start();
-        $this->session->set('logout', 'Vous avez été déconnecté');
+        if($reason === 'logout') {
+            $this->session->set('logout', 'Vous avez été déconnecté');
+        } else {
+            $this->session->set('delete_account', 'Votre compte a été supprimé');
+        }
         header('Location: ../public/index.php?route=login');
     }
 
@@ -169,10 +173,13 @@ class AccountController extends Controller
     public function deleteAccount()
     {
         $this->checkIfLogedIn();
+        $this->opinionDAO->deleteOpinionFromAccount($this->idUser);
+        $this->voteDAO->deleteVoteFromAccount($this->idUser);
         $result = $this->accountDAO->deleteAccountById($this->idUser);
         if($result) {
-        $this->session->set('delete_account', 'Votre compte a été supprimé');
-        header('Location: ../public/index.php?route=login');
+            $this->logout('delete');
+
+            header('Location: ../public/index.php?route=login');
         } else {
             $this->session->set('delete_account', 'Impossible de supprimer le compte');
             header('Location: ../public/index.php?route=myAccount');

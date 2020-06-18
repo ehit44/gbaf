@@ -18,7 +18,15 @@ class VoteDAO extends DAO
 
         return $vote;
     }
-    
+
+    public function deleteVoteFromAccount($idUser)
+    {
+        $sql = 'DELETE FROM vote WHERE id_user = ?';
+        $result = $this->createQuery($sql, [$idUser]);
+
+        return $result;
+    }
+
     private function getVoteNb($actorId, $vote)
     {
         $sql = 'SELECT COUNT(*) as voteNb FROM vote WHERE id_acteur =? AND vote = ?';

@@ -20,6 +20,14 @@ class OpinionDAO extends DAO
         return $opinion;
     }
 
+    public function deleteOpinionFromAccount($idUser)
+    {
+        $sql = 'DELETE FROM post WHERE id_user = ?';
+        $result = $this->createQuery($sql, [$idUser]);
+
+        return $result;
+    }
+
     public function getOpinionsPerActorId($actorId)
     {
         $sql = 'SELECT id_post, username, id_acteur, date_add, post 
