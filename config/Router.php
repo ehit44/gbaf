@@ -37,7 +37,7 @@ class Router
                     $this->accountController->login($post);
                 }
                 elseif($route === 'logout') {
-                    $this->accountController->logout();
+                    $this->accountController->logout('logout');
                 }
                 elseif($route === 'myAccount') {
                     $this->accountController->myAccount();

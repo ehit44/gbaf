@@ -2,22 +2,16 @@
 
 namespace App\src\controller;
 use App\src\DAO\ActorDAO;
-use App\src\DAO\VoteDAO;
-use App\src\DAO\OpinionDAO;
 use App\config\Parameter;
 
 class DisplayController extends Controller
 {
     protected $actorDAO;
-    protected $voteDAO;
-    protected $opinionDAO;
 
     public function __construct()
     {
         parent::__construct();
         $this->actorDAO = new ActorDAO();
-        $this->voteDAO = new VoteDAO();
-        $this->opinionDAO = new OpinionDAO();
     }
     
     public function home()

@@ -2,6 +2,8 @@
 
 namespace App\src\controller;
 
+use App\src\DAO\OpinionDAO;
+use App\src\DAO\VoteDAO;
 use App\src\model\View;
 use App\config\Request;
 use App\config\Parameter;
@@ -21,6 +23,9 @@ abstract class Controller
     
     protected $idUser;
 
+    protected $voteDAO;
+    protected $opinionDAO;
+
 
     public function __construct()
     {
@@ -35,6 +40,9 @@ abstract class Controller
         $this->installTwig();
 
         $this->idUser = $this->session->get('id_user');
+
+        $this->voteDAO = new VoteDAO();
+        $this->opinionDAO = new OpinionDAO();
 
     }
 
