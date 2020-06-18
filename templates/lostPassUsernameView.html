@@ -6,6 +6,34 @@
 
 <h2>Vous avez oublié votre mot de passe ?</h2>
 
+
+<div class="main">
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="img/edit-pass.jpg" alt="Mot de passe oublié"></figure>
+                    <a href="../public/index.php?route=login" class="signup-image-link">Connexion</a>
+                </div>
+
+                <div class="signin-form">
+                    <form method="POST" class="register-form" id="login-form" action="../public/index.php?route=lostPass">
+                        <h2 class="form-title">Quel est votre nom d'utilisateur ?</h2>
+                        <div class="form-group">
+                            <label for="username"><i class="zmdi zmdi-account-circle material-icons-name"></i></label>
+                            <input type="text" name="username" id="username" placeholder="Votre nom d'utilisateur"/>
+                            <div class="error">{{errors.username ? errors.username}}</div>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="submitUsername" id="submit" class="form-submit" value="Valider"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
 <div>
     <form method="post" action="../public/index.php?route=lostPass">
         <label for="username">Quel est votre nom d'utilisateur ?</label><br>

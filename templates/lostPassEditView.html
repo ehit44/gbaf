@@ -10,6 +10,46 @@
 
 <h2>Vous avez oublié votre mot de passe ?</h2>
 
+<div class="main">
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="img/edit-pass.jpg" alt="Mot de passe oublié"></figure>
+                    <a href="../public/index.php?route=login" class="signup-image-link">Connexion</a>
+                </div>
+
+                <div class="signin-form">
+                    <form method="POST" class="register-form" id="login-form" action="../public/index.php?route=lostPass">
+                        <div class="form-group">
+                            <label for="username"><i class="zmdi zmdi-account-circle material-icons-name"></i></label>
+                            <input type="text" name="username" id="username" readonly="readonly" value="{{user.username}}"/>
+                            <div class="error">{{errors.username ? errors.username}}</div>
+                        </div>
+                    <h2 class="form-title">Répondez à votre question secrète pour changer votre mot de passe</h2>
+                        <div class="form-group">
+                            <label for="question"><i class="zmdi zmdi-account-box"></i></label>
+                            <input type="text" name="question" id="question" readonly="readonly" value="{{user.question}}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="secretQuestion"><i class="zmdi zmdi-account-box-o"></i></label>
+                            <input type="text" name="secretQuestion" id="secretQuestion" placeholder="Réponse à votre question secrète"/>
+                            <div class="error">{{errors.secretQuestion ? errors.secretQuestion }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="zmdi zmdi-lock-outline"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Nouveau mot de passe"/>
+                            <div class="error">{{errors.password ? errors.password }}</div>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="submitEdit" id="submit" class="form-submit" value="Modifier le mot de passe"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 <div>
     <form method="post" action="../public/index.php?route=lostPass">
