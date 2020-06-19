@@ -10,51 +10,12 @@
 <body class="homepage is-preload">
 <div id="page-wrapper">
     {% include 'lib/header.html.twig' %}
-<header class="main-header">
-    <div class="container">
-            <h1 class="mh-logo">
-                <a href="../public/index.php"><img src="../public/img/gbaf-logo.png" width="70" alt="GBAF"></a>
-            </h1>
-            {% if session.get('id_user') %}
-            <nav class="main-nav">
-                <ul class="main-nav-list">
-                    <li>
-                        <a href="../public/index.php?route=myAccount"><img class="icon" src="../public/icon/user.png" alt="Déconnexion">{{session.get('username')}}</a>
-                    </li>
-                    <li>
-                        <a href="../public/index.php?route=logout"><img class="icon" src="../public/icon/logout.png" alt="Déconnexion">Déconnexion</a>
-                    </li>
-                </ul>
-            </nav>
-            {% endif %}
-    </div>
-</header>
-    <div class="container">
+
+    <section id="main">
         {% block content %}{% endblock %}
-    </div>
-<footer>
-    <div class="container">
-        <nav class="main-nav">
-            <ul class="main-nav-list">
-                <li>
-                    © GBAF 2020
-                </li>
-                <li>
-                    |
-                </li>
-                <li>
-                    <a href="#">Mentions légales</a>
-                </li>
-                <li>
-                    |
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</footer>
+    </section>
+    {% include 'lib/footer.html.twig' %}
+
 </div>
 <!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
