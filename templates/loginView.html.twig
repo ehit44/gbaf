@@ -3,7 +3,8 @@
 {% block title %}Connexion{% endblock %}
 
 {% block content %}
-
+    <div class="row">
+    <div class="col-12">
 <div class="session">
     {{ session.show('need_login') }}
     {{ session.show('logout') }}
@@ -25,5 +26,6 @@
 </div>
 <a href="../public/index.php?route=lostPass">Mot de passe oublié ?</a><br>
 <a href="../public/index.php?route=register">Pas encore de compte ? Inscrivez-vous</a>
-
+    </div>
+    </div>
 {% endblock %}

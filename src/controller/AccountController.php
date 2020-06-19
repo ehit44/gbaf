@@ -25,11 +25,11 @@ class AccountController extends Controller
                 $this->session->set('create_account', 'Votre compte a bien été créé, vous pouvez vous connecter');
                 header('Location: ../public/index.php?route=login');
             } else {
-                echo $this->twig->render('accountFormView.html', ['errors' => $errors]);
+                echo $this->twig->render('accountFormView.html.twig', ['errors' => $errors]);
                 return;
             }
         }
-        echo $this->twig->render('accountFormView.html');
+        echo $this->twig->render('accountFormView.html.twig');
         return;
     }
 
@@ -94,13 +94,13 @@ class AccountController extends Controller
                 $this->session->set('edit_account', 'Vos informations personnelles ont été modifiées');
                 header('Location: ../public/index.php?route=myAccount');
             } else {
-                echo $this->twig->render('accountFormView.html', [
+                echo $this->twig->render('accountFormView.html.twig', [
                     'user' => $user,
                     'errors' => $errors
                 ]);
             }
         } else {
-            echo $this->twig->render('accountFormView.html', ['user' => $user]);
+            echo $this->twig->render('accountFormView.html.twig', ['user' => $user]);
             return;
         }
     }

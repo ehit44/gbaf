@@ -18,7 +18,7 @@ class DisplayController extends Controller
     {
         $this->checkIfLogedIn();
         $actors = $this->actorDAO->getAllActors();
-        echo $this->twig->render('homeView.html', ['actors' => $actors]);
+        echo $this->twig->render('homeView.html.twig', ['actors' => $actors]);
 
     }
     public function getActorPage($actorId)
