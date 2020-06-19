@@ -21,7 +21,7 @@ class View
     {
         $this->file = '../templates/' . $template . '.php';
         $content = $this->renderFile($this->file, $data);
-        $view = $this->renderFile('../templates/base.html', [
+        $view = $this->renderFile('../templates/base.html.twig', [
             'title' => $this->title,
             'content' => $content,
             'session' => $this->session

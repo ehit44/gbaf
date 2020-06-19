@@ -2,12 +2,14 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:900|Work+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body class="homepage is-preload">
+<div id="page-wrapper">
+    {% include 'lib/header.html.twig' %}
 <header class="main-header">
     <div class="container">
             <h1 class="mh-logo">
@@ -53,6 +55,14 @@
         </nav>
     </div>
 </footer>
+</div>
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.dropotron.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
