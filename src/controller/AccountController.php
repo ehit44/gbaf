@@ -54,11 +54,11 @@ class AccountController extends Controller
 
             } else {
                 $error = ['connexion' => 'Erreur de connexion'];
-                echo $this->twig->render('loginView.html', ['errors' => $error]);
+                echo $this->twig->render('loginView.html.twig', ['errors' => $error]);
                 return;
             }
         }
-        echo $this->twig->render('loginView.html');
+        echo $this->twig->render('loginView.html.twig');
         return;
     }
 
