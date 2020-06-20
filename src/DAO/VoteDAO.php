@@ -39,11 +39,11 @@ class VoteDAO extends DAO
     {
         $voteStatus = $this->getVoteStatus($actorId, $userId);
         if($voteStatus === '0') {
-            $icon = ['positiveIcon' => 'positive-vote.png', 'negativeIcon' => 'negative-vote-bold.png'];
+            $icon = ['positiveIcon' => 'icon fa-thumbs-up', 'negativeIcon' => 'icon solid fa-thumbs-down'];
         } elseif ($voteStatus === '1') {
-            $icon = ['positiveIcon' => 'positive-vote-bold.png', 'negativeIcon' => 'negative-vote.png'];
+            $icon = ['positiveIcon' => 'icon solid fa-thumbs-up', 'negativeIcon' => 'icon fa-thumbs-down'];
         } else {
-            $icon = ['positiveIcon' => 'positive-vote.png', 'negativeIcon' => 'negative-vote.png'];
+            $icon = ['positiveIcon' => 'icon fa-thumbs-up', 'negativeIcon' => 'icon fa-thumbs-down'];
         }
         return $icon;
     }

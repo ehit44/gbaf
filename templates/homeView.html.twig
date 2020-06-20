@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-<div class="session">{{session.show('log_account')}}</div>
+        <div class="session">{{session.show('log_account')}}</div>
 
         <!-- Content -->
         <article class="box post">
@@ -22,33 +22,33 @@
 
 
 
-    <!-- Portfolio -->
-    <section>
-        <header class="major">
-            <h2>Liste des acteurs</h2>
-        </header>
-        <div class="row">
-        {% for actor in actors %}
-            <div class="col-6 col-12-small">
-                <section class="box">
-                    <a href="../public/index.php?route=getActor&actorId={{actor.id}}" class="image featured"><img src="../public/img/{{actor.logo}}" alt="{{actor.actor}}" /></a>
-                    <header>
-                        <h3>{{actor.actor}}</h3>
-                    </header>
-                    <p>{{actor.description[:250]}}...</p>
-                    <footer>
-                        <ul class="actions">
-                            <li><a href="../public/index.php?route=getActor&actorId={{actor.id}}" class="button alt">Voir plus</a></li>
-                        </ul>
-                    </footer>
-                </section>
+        <!-- Portfolio -->
+        <section>
+            <header class="major">
+                <h2>Liste des acteurs</h2>
+            </header>
+            <div class="row">
+            {% for actor in actors %}
+                <div class="col-6 col-12-small">
+                    <section class="box">
+                        <a href="../public/index.php?route=getActor&actorId={{actor.id}}" class="image featured"><img src="../public/img/{{actor.logo}}" alt="{{actor.actor}}" /></a>
+                        <header>
+                            <h3>{{actor.actor}}</h3>
+                        </header>
+                        <p>{{actor.description[:250]}}...</p>
+                        <footer>
+                            <ul class="actions">
+                                <li><a href="../public/index.php?route=getActor&actorId={{actor.id}}" class="button alt">Voir plus</a></li>
+                            </ul>
+                        </footer>
+                    </section>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-    </section>
+        </section>
 
+        </div>
     </div>
-</div>
     </div>
 
 

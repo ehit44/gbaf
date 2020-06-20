@@ -28,7 +28,7 @@ class DisplayController extends Controller
         $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
         $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
         echo $this->twig->render(
-            'actorView.html', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
+            'actorView.html.twig', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
         );
     }
 
