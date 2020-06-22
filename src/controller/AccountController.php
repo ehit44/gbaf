@@ -80,7 +80,7 @@ class AccountController extends Controller
     {
         $this->checkIfLogedIn();
         $user = $this->accountDAO->getAccountById($this->idUser);
-        echo $this->twig->render('myAccountView.html', ['user' => $user]);
+        echo $this->twig->render('myAccountView.html.twig', ['user' => $user]);
     }
 
     public function editAccount(Parameter $post)
@@ -120,12 +120,12 @@ class AccountController extends Controller
                 $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
                 header('Location: ../public/index.php?route=myAccount');
             } else {
-                echo $this->twig->render('editPasswordView.html', ['errors' => $errors]);
+                echo $this->twig->render('editPasswordView.html.twig', ['errors' => $errors]);
                 return;
             }
         }
         else {
-            echo $this->twig->render('editPasswordView.html');
+            echo $this->twig->render('editPasswordView.html.twig');
             return;
         }
     }
@@ -137,11 +137,11 @@ class AccountController extends Controller
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
             if(!$user->getId()) {
                 $errors = ['username' => "Ce nom d'utilisateur n'existe pas"];
-                echo $this->twig->render('lostPassUsernameView.html', ['errors' => $errors]);
+                echo $this->twig->render('lostPassUsernameView.html.twig', ['errors' => $errors]);
                 return;
             }
             if($post->get('submitUsername')) {
-                echo $this->twig->render('lostPassEditView.html', ['user' => $user]);
+                echo $this->twig->render('lostPassEditView.html.twig', ['user' => $user]);
             } else {
                 $errors = $this->validation->validate($post, 'Account');
                 $errors['secretQuestion'] = $this->checkSecretResponse($post->get('secretQuestion'), $user->getResponse());
@@ -150,12 +150,12 @@ class AccountController extends Controller
                     $this->session->set('edit_password', 'Votre mot de passe a bien été modifié');
                     header('Location: ../public/index.php?route=login');
                 } else {
-                    echo $this->twig->render('lostPassEditView.html', ['user' => $user, 'errors' => $errors]);
+                    echo $this->twig->render('lostPassEditView.html.twig', ['user' => $user, 'errors' => $errors]);
                     return;
                 }
             }
         } else {
-            echo $this->twig->render('lostPassUsernameView.html');
+            echo $this->twig->render('lostPassUsernameView.html.twig');
             return;
         }
     }

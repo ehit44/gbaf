@@ -13,13 +13,13 @@
 
 <div>
     <form method="post" action="../public/index.php?route=lostPass">
-        <label for="username">Nom d'utilisateur :</label><br>
+        <label for="username">Nom d'utilisateur :</label>
         <input type="text" id="username" name="username" readonly="readonly" value="{{user.username}}"><br>
         <h3>Répondez à votre question secrète pour changer votre mot de passe</h3>
-        <label for="secretQuestion">Votre question secrète : {{user.question}} ?</label><br>
-        <input type="text" id="secretQuestion" name="secretQuestion"><br>
+        <label for="secretQuestion">Votre question secrète : {{user.question}} ?</label>
+        <input type="text" id="secretQuestion" name="secretQuestion">
         <div class="error">{{errors.secretQuestion ? errors.secretQuestion }}</div>
-        <label for="password">Nouveau mot de passe</label><br>
+        <label for="password">Nouveau mot de passe</label>
         <input type="password" id="password" name="password"><br>
         <div class="error">{{errors.password ? errors.password }}</div>
         <input type="submit" value="Modifier le mot de passe" id="submit" name="submitEdit">
