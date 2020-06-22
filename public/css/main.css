@@ -1787,7 +1787,7 @@ input, select, textarea {
 		ul.contact li {
 			position: relative;
 			border-top: solid 1px #ddd;
-			padding: 1.3em 0 1.3em 7em;
+			padding: 1.3em 0 1.3em 11em;
 		}
 
 			ul.contact li h3 {
@@ -2069,7 +2069,7 @@ input, select, textarea {
 		position: relative;
 		background: #ffffff;
 		border-bottom: solid 1px #ccc;
-		padding: 5em 0 4em 0;
+		padding: 1em 0 2em 0;
 		text-align: center;
 	}
 
@@ -2081,10 +2081,14 @@ input, select, textarea {
 			line-height: 1;
 		}
 
+		#header .logo {
+			width: 100px;
+		}
+
 /* Nav */
 
 	#nav {
-		margin: 2.5em 0 0 0;
+		margin: 1em 0 0 0;
 	}
 
 		#nav > ul {

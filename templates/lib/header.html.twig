@@ -2,15 +2,15 @@
 <section id="header">
 
     <!-- Logo -->
-    <h1><a href="../../public/index.php"><img src="../public/img/gbaf-logo.png" alt="GBAF"></a></h1>
+    <h1><a href="../public/index.php"><img class="logo" src="../public/img/gbaf-logo.png" alt="GBAF"></a></h1>
 
     <!-- Nav -->
     <nav id="nav">
         <ul>
-            <li class="current"><a href="../public/index.php">Accueil</a></li>
+            <li><a href="../public/index.php">Accueil</a></li>
             {% if session.get('id_user') %}
             <li>
-                <a href="../../public/index.php?route=myAccount">{{session.get('username')}}</a>
+                <a href="../public/index.php?route=myAccount">{{session.get('username')}}</a>
                 <ul>
                     <li><a href="../public/index.php?route=myAccount">Voir mon compte</a></li>
                     <li><a href="../public/index.php?route=logout">Déconnexion</a></li>

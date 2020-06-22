@@ -5,23 +5,40 @@
 {% block content %}
 
 
-<h2>Vos informations personnelles</h2>
-<div class="session">
-    {{ session.show('edit_account') }}
-    {{ session.show('edit_password') }}
-    {{ session.show('delete_account') }}
-</div>
-<div>
-    <a href="../public/index.php?route=editAccount">Modifier vos informations personnelles</a>
-    <a href="../public/index.php?route=editPassword">Modifier le mot de passe</a>
-    <a href="../public/index.php?route=deleteAccount"  onclick="return  confirm('Etes-vous sur de vouloir supprimer votre compte ?')">Supprimer le compte</a>
-    <h3>Nom : </h3>
-    <p>{{ user.name }}</p>
-    <h3>Prénom : </h3>
-    <p>{{ user.firstName }}</p>
-    <h3>Nom d'utilisateur : </h3>
-    <p>{{ user.username }}</p>
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <section>
+                <header>
+                    <h2>Vos informations personnelles</h2>
+                    <div class="session">
+                        {{ session.show('edit_account') }}
+                        {{ session.show('edit_password') }}
+                        {{ session.show('delete_account') }}
+                    </div>
+                </header>
+                <ul class="actions">
+                    <li><a href="../public/index.php?route=editAccount" class="button icon solid fa-user-edit">Modifier le compte</a></li>
+                    <li><a href="../public/index.php?route=editPassword" class="button icon solid fa-unlock-alt">Modifier le mot de passe</a></li>
+                    <li><a href="../public/index.php?route=deleteAccount" onclick="return  confirm('Etes-vous sur de vouloir supprimer votre compte ?')" class="button icon solid fa-user-slash">Supprimer le compte</a></li>
+                </ul>
+                <ul class="contact">
+                    <li>
+                        <h3>Nom : </h3>
+                        <p>{{ user.name }}</p>
+                    </li>
+                    <li>
+                        <h3>Prénom : </h3>
+                        <p>{{ user.firstName }}</p>
+                    </li>
+                    <li>
+                        <h3>Nom d'utilisateur : </h3>
+                        <p>{{ user.username }}</p>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
 <a href="../public/index.php">Retour à l'accueil</a>
 
 {% endblock %}
