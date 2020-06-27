@@ -13,7 +13,7 @@ install dependencies
 ``` bash
 $ composer install
 ``` 
-Install the database from the files in : [sql](SQL)
+Install the database from the files in : [sql](https://github.com/ehit44/gbaf/tree/dev/sql)
 
 Move to the folder and install the webserver with :
 ``` bash
