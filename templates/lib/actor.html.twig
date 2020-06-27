@@ -1,0 +1,22 @@
+
+
+<!-- Content -->
+<article class="box post">
+    <a href="../public/index.php?route=getActor&actorId={{actor.id}}" class="image featured"><img src="../public/img/{{actor.logo}}" alt="{{actor.actor}}" /></a>
+    <header>
+        <h2>{{actor.actor}}</h2>
+    </header>
+    <p>
+        {{actor.description}} 
+    </p>
+    <section>
+        <header>
+            <h3>Ce que vos collègues pensent de {{actor.actor}} : </h3>
+        </header>
+
+        <p><a class="{{vote.positiveIcon}}" href="../public/index.php?route=upVote&actorId={{actor.id}}"></a>
+        <span>{{vote.positiveVoteNb}} ont donné une note positive</span></p>
+        <p><a class="{{vote.negativeIcon}}" href="../public/index.php?route=downVote&actorId={{actor.id}}"></a>
+        <span>{{vote.negativeVoteNb}} ont donné une note négative</span></p>
+    </section>
+</article>

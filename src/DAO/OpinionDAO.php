@@ -13,8 +13,7 @@ class OpinionDAO extends DAO
         $opinion->setId($row['id_post']);
         $opinion->setActorId($row['id_acteur']);
         $opinion->setUsername($row['username']);
-        $date = date("d/m/Y", strtotime($row['date_add']));
-        $opinion->setDate($date);
+        $opinion->setDate($row['date_add']);
         $opinion->setOpinion($row['post']);
 
         return $opinion;

@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{actor.actor}}{% endblock %}
+
+{% block content %}
+
+<div class="session">{{session.show('post_opinion')}}</div>
+
+    {% include 'lib/actor.html.twig' %}
+
+
+
+    {% include 'lib/opinion.html.twig' %}
+
+
+<a class="nav-link" href="../public/index.php">Retour à l'accueil</a>
+
+{% endblock %}
+
+

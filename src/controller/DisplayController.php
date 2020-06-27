@@ -18,7 +18,7 @@ class DisplayController extends Controller
     {
         $this->checkIfLogedIn();
         $actors = $this->actorDAO->getAllActors();
-        echo $this->twig->render('homeView.html', ['actors' => $actors]);
+        echo $this->twig->render('homeView.html.twig', ['actors' => $actors]);
 
     }
     public function getActorPage($actorId)
@@ -28,7 +28,7 @@ class DisplayController extends Controller
         $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
         $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
         echo $this->twig->render(
-            'actorView.html', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
+            'actorView.html.twig', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote]
         );
     }
 
