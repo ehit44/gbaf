@@ -98,6 +98,7 @@ class AccountController extends Controller
                     'user' => $user,
                     'errors' => $errors
                 ]);
+                return;
             }
         } else {
             echo $this->twig->render('accountFormView.html.twig', ['user' => $user]);

@@ -9,11 +9,14 @@ Clone the project
 $ git clone https://github.com/ehit44/gbaf.git
 ```
 
-install dependencies
+Install dependencies
 ``` bash
 $ composer install
 ``` 
-Install the database from the files in : [sql](https://github.com/ehit44/gbaf/tree/dev/sql)
+Install the database from the files in [sql](https://github.com/ehit44/gbaf/tree/dev/sql) with the following order :
+ 1. [db](https://github.com/ehit44/gbaf/tree/dev/sql/db)
+ 2. [account](https://github.com/ehit44/gbaf/tree/dev/sql/account) & [acteur](https://github.com/ehit44/gbaf/tree/dev/sql/acteur)
+ 3. [post](https://github.com/ehit44/gbaf/tree/dev/sql/post) & [vote](https://github.com/ehit44/gbaf/tree/dev/sql/vote)
 
 Move to the folder and install the webserver with :
 ``` bash
