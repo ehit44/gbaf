@@ -4,14 +4,12 @@ namespace App\src\controller;
 
 use App\src\DAO\OpinionDAO;
 use App\src\DAO\VoteDAO;
-use App\src\model\View;
 use App\config\Request;
 use App\config\Parameter;
 use App\src\constraint\Validation;
 
 abstract class Controller
 {
-    protected $view;
 
     private $request;
     protected $get;
@@ -29,7 +27,6 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->view = new View();
 
         $this->request = new Request();
         $this->get = $this->request->getGet();
