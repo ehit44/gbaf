@@ -84,4 +84,9 @@ class DisplayController extends Controller
         header('Location: ../public/index.php?route=getActor&actorId=' .$actorId);
     }
 
+    public function unknownRoute()
+    {
+        echo $this->twig->render('unknownRoute.html.twig');
+    }
+
 }

@@ -67,7 +67,7 @@ class Router
                     $this->displayController->downVote($get->get('actorId'));
                 }
                 else {
-                    echo 'route inconnue';
+                    $this->displayController->unknownRoute();
                 }
             }
         else{
