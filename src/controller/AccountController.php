@@ -17,6 +17,7 @@ class AccountController extends Controller
 
     public function register(Parameter $post)
     {
+        $this->checkIfLogedIn('need_unlogin');
         if($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Account');
             $errors += $this->checkUsernameUnicity($post->get('username'));
