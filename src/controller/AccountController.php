@@ -37,7 +37,7 @@ class AccountController extends Controller
         $usernameExists = $this->accountDAO->checkIfUsernameExists($username);
         $errors = [];
         if($usernameExists) {
-            $errors = ['username' => '<p>Ce nom d\'utilisateur existe déjà<p>'];
+            $errors = ['username' => 'Ce nom d\'utilisateur existe déjà'];
         }
         return $errors;
     }

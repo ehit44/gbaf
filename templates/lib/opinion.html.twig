@@ -20,7 +20,8 @@
             <form  method="post" action="../public/index.php?route=postOpinion&actorId={{actor.id}}">
                 <label for="opinion">Donnez votre avis</label>
                 <textarea id="opinion" name="opinion"  rows="4" cols="50"> Votre avis...</textarea><br>
-                <div class="error">{{session.show('error_post')}}</div>
+                <div class="error">{{errors.opinion ? errors.opinion}}</div>
+                <div class="error">{{errors.opinionUnicity ? errors.opinionUnicity}}</div>
                 <input type="submit" value="Envoyer" id="submit" name="submit">
             </form>
 
