@@ -25,11 +25,15 @@ class DisplayController extends Controller
     {
         $this->checkIfLogedIn();
         $actor = $this->actorDAO->getActorById($actorId);
-        $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
-        $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
-        echo $this->twig->render(
-            'actorView.html.twig', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote, 'errors' =>$errors]
-        );
+        if($actor) {
+            $opinions = $this->opinionDAO->getOpinionsPerActorId($actorId);
+            $vote = $this->voteDAO->buildObject($actorId, $this->idUser);
+            echo $this->twig->render(
+                'actorView.html.twig', ['actor' => $actor, 'opinions' => $opinions, 'vote' => $vote, 'errors' =>$errors]
+            );
+        } else {
+            header('Location: ../public/index.php?route=unknownRoute');
+        }
     }
 
     public function postOpinion(Parameter $post, $actorId)
