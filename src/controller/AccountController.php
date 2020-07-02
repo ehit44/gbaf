@@ -37,13 +37,14 @@ class AccountController extends Controller
         $usernameExists = $this->accountDAO->checkIfUsernameExists($username);
         $errors = [];
         if($usernameExists) {
-            $errors = ['username' => '<p>Ce nom d\'utilisateur existe déjà<p>'];
+            $errors = ['username' => 'Ce nom d\'utilisateur existe déjà'];
         }
         return $errors;
     }
 
     public function login(Parameter $post)
     {
+        $this->checkIfLogedIn('need_unlogin');
         if($post->get('submit')) {
             $login = $this->accountDAO->checkPassword($post->get('username'), $post->get('password'));
             if($login['isPassCorrect']) {
@@ -134,6 +135,7 @@ class AccountController extends Controller
 
     public function lostPass(Parameter $post)
     {
+        $this->checkIfLogedIn('need_unlogin');
         if($post->get('submitUsername') || $post->get('submitEdit')) {
             $user = $this->accountDAO->getAccountByUsername($post->get('username'));
             if(!$user->getId()) {

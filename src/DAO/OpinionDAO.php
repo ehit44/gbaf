@@ -55,4 +55,17 @@ class OpinionDAO extends DAO
 
         return $result;
     }
+
+    public function checkIfOpinionExists($actorId, $userId)
+    {
+        $sql = 'SELECT post FROM post WHERE id_acteur = :id_acteur AND id_user = :id_user';
+        $data = $this->createQuery($sql, [
+            'id_acteur' => $actorId,
+            'id_user' =>$userId,
+        ]);
+        if($data->rowCount()) {
+            return true;
+        }
+        return false;
+    }
 }

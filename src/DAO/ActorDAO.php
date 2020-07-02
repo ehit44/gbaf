@@ -38,11 +38,14 @@ class ActorDAO extends DAO
         WHERE id_acteur = ?';
         $result = $this->createQuery($sql, [$actorId]);
         $data = $result->fetch();
-
+        if($data) {
         $actor = $this->buildObject($data);
         $result->closeCursor();
-
         return $actor;
+        }
+        else {
+            return false;
+        }
     }
 
 }

@@ -2,7 +2,11 @@
     <div class="col-8 col-12-medium">
         <section>
             <header>
-                <h2>Les dernières opinion sur {{actor.actor}}</h2>
+                {% if opinions %}
+                    <h2>Les dernières opinions sur {{actor.actor}}</h2>
+                {% else %}
+                    <h2>Pas encore d'opinions sur {{actor.actor}}</h2>
+                {% endif %}
             </header>
             <ul class="dates">
                 {% for opinion in opinions %}
@@ -20,7 +24,8 @@
             <form  method="post" action="../public/index.php?route=postOpinion&actorId={{actor.id}}">
                 <label for="opinion">Donnez votre avis</label>
                 <textarea id="opinion" name="opinion"  rows="4" cols="50"> Votre avis...</textarea><br>
-                <div class="error">{{session.show('error_post')}}</div>
+                <div class="error">{{errors.opinion ? errors.opinion}}</div>
+                <div class="error">{{errors.opinionUnicity ? errors.opinionUnicity}}</div>
                 <input type="submit" value="Envoyer" id="submit" name="submit">
             </form>
 

@@ -4,14 +4,12 @@ namespace App\src\controller;
 
 use App\src\DAO\OpinionDAO;
 use App\src\DAO\VoteDAO;
-use App\src\model\View;
 use App\config\Request;
 use App\config\Parameter;
 use App\src\constraint\Validation;
 
 abstract class Controller
 {
-    protected $view;
 
     private $request;
     protected $get;
@@ -29,7 +27,6 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->view = new View();
 
         $this->request = new Request();
         $this->get = $this->request->getGet();
@@ -57,11 +54,15 @@ abstract class Controller
         $this->twig->addGlobal('session', $this->session);
     }
 
-    protected function checkIfLogedIn()
+    protected function checkIfLogedIn($reason = 'need_login')
     {
-        if(!$this->idUser) {
+        if(!$this->idUser and $reason === 'need_login') {
             $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
             header('Location: index.php?route=login');
+        }
+        if($this->idUser and $reason === 'need_unlogin') {
+            $this->session->set('need_unlogin', 'vous êtes déjà connecté');
+            header('Location: index.php?route=home');
         }
     }
     

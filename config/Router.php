@@ -30,7 +30,10 @@ class Router
             if($this->request->getSession())
             if(isset($route))
             {
-                if($route === 'register') {
+                if($route === 'home') {
+                    $this->displayController->home();
+                }
+                elseif($route === 'register') {
                     $this->accountController->register($post);
                 }
                 elseif($route === 'login') {
@@ -67,7 +70,7 @@ class Router
                     $this->displayController->downVote($get->get('actorId'));
                 }
                 else {
-                    echo 'route inconnue';
+                    $this->displayController->unknownRoute();
                 }
             }
         else{
