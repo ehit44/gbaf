@@ -2,7 +2,11 @@
     <div class="col-8 col-12-medium">
         <section>
             <header>
-                <h2>Les dernières opinion sur {{actor.actor}}</h2>
+                {% if opinions %}
+                    <h2>Les dernières opinions sur {{actor.actor}}</h2>
+                {% else %}
+                    <h2>Pas encore d'opinions sur {{actor.actor}}</h2>
+                {% endif %}
             </header>
             <ul class="dates">
                 {% for opinion in opinions %}
