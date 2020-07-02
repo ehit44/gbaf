@@ -54,11 +54,15 @@ abstract class Controller
         $this->twig->addGlobal('session', $this->session);
     }
 
-    protected function checkIfLogedIn()
+    protected function checkIfLogedIn($reason = 'need_login')
     {
-        if(!$this->idUser) {
+        if(!$this->idUser and $reason === 'need_login') {
             $this->session->set('need_login', 'vous devez vous connecter pour accéder à cette page');
             header('Location: index.php?route=login');
+        }
+        if($this->idUser and $reason === 'need_unlogin') {
+            $this->session->set('need_unlogin', 'vous êtes déjà connecté');
+            header('Location: index.php?route=home');
         }
     }
     
